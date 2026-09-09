@@ -1,0 +1,28 @@
+# Visual Studio and VS Code local workspace settings
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# .NET build and test output
+[Bb]in/
+[Oo]bj/
+TestResults/
+*.nupkg
+*.snupkg
+
+# Azure Functions local settings and local secrets
+local.settings.json
+.azurefunctions/
+.env
+.env.*
+!.env.example
+secrets.json
+*.pfx
+*.p12
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
