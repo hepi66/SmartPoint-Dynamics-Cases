@@ -13,13 +13,13 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Configure useful forms for Location, Room, and Booking; configure the required booking/day views; create the model-driven room-planning app; add representative test data; and validate the basic end-to-end booking experience.
+Booking confirmation Power Automate flow
 
 ## Roadmap and Implementation Status
 
 | Priority | Implementation item | Status |
 | --- | --- | --- |
-| 1 | Room-planning Dataverse model and model-driven app | IN PROGRESS — Dataverse foundation COMPLETED; forms, views, app, test data, and validation NOT STARTED |
+| 1 | Room-planning Dataverse model and model-driven app | COMPLETED to the extent required for the SmartPoint case |
 | 2 | Booking confirmation Power Automate flow | NOT STARTED |
 | 3 | JavaScript Account form notification | NOT STARTED |
 | 4 | C# Dataverse console application | NOT STARTED |
@@ -31,7 +31,7 @@ Configure useful forms for Location, Room, and Booking; configure the required b
 
 ### 1. Room-planning Dataverse Model and Model-driven App
 
-Status: IN PROGRESS — Dataverse foundation COMPLETED. Forms, views, model-driven app, representative test data, and end-to-end validation are NOT STARTED.
+Status: COMPLETED to the extent required for the SmartPoint case. The Dataverse foundation, Room Planning model-driven app, representative test data, Today's Bookings view, app navigation, and basic booking creation workflow are verified. Planning Capacity is informational only, as documented in the deliberate scope decision below.
 
 - Support multiple locations, each containing rooms.
 - Rooms have different maximum capacities.
@@ -108,6 +108,7 @@ Status: NOT STARTED
 
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
+- Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below. Roadmap priorities 2–7 remain NOT STARTED.
 
 ### Completed Dataverse Foundation
 
@@ -118,17 +119,27 @@ Status: NOT STARTED
 | Booking | Booking Name | Booking Date: required Date Only field. Room: required lookup to Room. Employee: required lookup to the existing Dataverse User (`systemuser`) table. |
 
 - Implemented relationships: Location 1:N Room, Room 1:N Booking, and User 1:N Booking.
-- Planning Capacity represents the allowed occupancy under the 50 percent planning rule.
+- Planning Capacity represents the intended 50% occupancy planning limit; it is informational and is not enforced by Dataverse.
 - User (`systemuser`) is an existing managed Dataverse system table, not a table created by this project. It appears in the solution because the Employee lookup introduces that dependency.
 - No custom overbooking validation has been implemented; it is not required for the case.
-- Forms, booking/day views, the model-driven app, representative test data, and basic end-to-end booking validation remain NOT STARTED. Roadmap priorities 2–7 remain NOT STARTED.
+
+### Verified Room Planning App and Test Data
+
+- The model-driven app is named `Room Planning` and contains Locations, Rooms, and Bookings.
+- Location test data exists for `Graz`.
+- Room test data exists for `Graz Meeting Room 01`, with Maximum Capacity = 10 and Planning Capacity = 5.
+- Booking records contain Booking Name, Booking Date, Room, and Employee. Employee uses a Dataverse User lookup.
+- The `Today's Bookings` view exists and was functionally verified: a booking for the current day is shown, while a booking for the following day is excluded.
+- The model-driven app navigation and basic booking creation workflow were functionally tested.
+
+### Known Limitation / Deliberate Scope Decision
+
+Planning Capacity is currently informational only. Dataverse does not prevent bookings beyond this capacity. This behavior was explicitly tested by successfully creating a sixth same-day booking for a room with Planning Capacity = 5. Custom overbooking validation is intentionally not implemented because it is not required by the SmartPoint case scope.
+
+This is a conscious scope decision, not an unnoticed defect. Completion of the Room Planning foundation does not imply enforcement of the planning limit.
 
 ## Next Steps
 
-1. Configure useful forms for Location, Room, and Booking.
-2. Configure the required booking/day views.
-3. Create the model-driven room-planning app.
-4. Add representative test data.
-5. Validate the basic end-to-end booking experience.
+1. Booking confirmation Power Automate flow — NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
