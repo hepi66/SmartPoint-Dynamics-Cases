@@ -13,14 +13,14 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Booking confirmation Power Automate flow
+JavaScript Account Form Notification
 
 ## Roadmap and Implementation Status
 
 | Priority | Implementation item | Status |
 | --- | --- | --- |
 | 1 | Room-planning Dataverse model and model-driven app | COMPLETED to the extent required for the SmartPoint case |
-| 2 | Booking confirmation Power Automate flow | NOT STARTED |
+| 2 | Booking confirmation Power Automate flow | COMPLETED and VERIFIED |
 | 3 | JavaScript Account form notification | NOT STARTED |
 | 4 | C# Dataverse console application | NOT STARTED |
 | 5 | Timer-triggered Azure Function | NOT STARTED |
@@ -43,7 +43,7 @@ Status: COMPLETED to the extent required for the SmartPoint case. The Dataverse 
 
 ### 2. Booking Confirmation Power Automate Flow
 
-Status: NOT STARTED
+Status: COMPLETED and VERIFIED. The saved flow successfully processed a new Booking and delivered the confirmation email to the user's Microsoft 365 mailbox. Implementation, verification, and troubleshooting are recorded under Completed Work.
 
 - Trigger when a booking is created.
 - Send the employee a confirmation email for the booked day.
@@ -108,7 +108,8 @@ Status: NOT STARTED
 
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
-- Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below. Roadmap priorities 2–7 remain NOT STARTED.
+- Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 3–7 remain NOT STARTED.
 
 ### Completed Dataverse Foundation
 
@@ -138,8 +139,27 @@ Planning Capacity is currently informational only. Dataverse does not prevent bo
 
 This is a conscious scope decision, not an unnoticed defect. Completion of the Room Planning foundation does not imply enforcement of the planning limit.
 
+### Verified Booking Confirmation Flow
+
+- Flow name: `Booking Confirmation`; environment: `CRM816895`.
+- Trigger: Microsoft Dataverse — `When a row is added, modified or deleted`, configured to react to creation of a Booking record.
+- The Booking contains Employee and Room lookups. A Dataverse `Get a row by ID` action resolves the Employee/User record; the Employee's Primary Email supplies the recipient.
+- A second Dataverse `Get a row by ID` action resolves the Room record; Room Name supplies the room text. Booking Date comes from the Booking record.
+- Email action: Office 365 Outlook — `Send an email (V2)`. Subject: `Room booking confirmation`. The body contains confirmation text, Booking Date, and Room Name.
+- The flow was successfully saved and tested end-to-end using a new Booking named `Flow Test`, dated `2026-09-09`, for room `Graz Meeting Room 01` and employee `Achim Hepberger`.
+- All four flow stages completed successfully, and the confirmation email was actually received in the user's Microsoft 365 mailbox with the correct booking date and room. This constitutes functional verification of the SmartPoint booking-confirmation requirement.
+
+### Booking Confirmation Troubleshooting History
+
+1. During initial setup, the Dataverse trigger could not load Change Type values. The designer reported `Unexpected error occurred when calling the XRM api` and `The remote name could not be resolved: 'org96048834.crm3.dynamics.com'`.
+2. Recreating the flow through another Power Apps/Flows entry point did not resolve this issue. Multiple newly created Dataverse connections showed `Connected`, so it was not simply an unauthenticated Dataverse connection.
+3. After the environment/connectivity/DNS-related XRM API issue was resolved, Dataverse metadata and lookup operations worked normally and the flow could be configured. No more specific root cause or resolution mechanism was verified.
+4. A separate issue occurred during the first execution: the initially selected generic Mail action, `Send an email notification (V3)`, failed with Microsoft's message that the Mail connector is currently restricted for new tenants and suggested alternatives such as Office 365 Outlook.
+5. The Mail action was replaced with Office 365 Outlook — `Send an email (V2)`, and the existing dynamic values were restored: Employee Primary Email, Booking Date, and Room Name.
+6. After saving the updated flow, a new Booking triggered it successfully; all four stages completed and the received email contained the correct booking date and room. Office 365 Outlook is the final working mail connector.
+
 ## Next Steps
 
-1. Booking confirmation Power Automate flow — NOT STARTED.
+1. JavaScript Account Form Notification — NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
