@@ -13,13 +13,13 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Design the minimal Dataverse data model for the room-planning application before creating any tables.
+Configure useful forms for Location, Room, and Booking; configure the required booking/day views; create the model-driven room-planning app; add representative test data; and validate the basic end-to-end booking experience.
 
 ## Roadmap and Implementation Status
 
 | Priority | Implementation item | Status |
 | --- | --- | --- |
-| 1 | Room-planning Dataverse model and model-driven app | NOT STARTED |
+| 1 | Room-planning Dataverse model and model-driven app | IN PROGRESS — Dataverse foundation COMPLETED; forms, views, app, test data, and validation NOT STARTED |
 | 2 | Booking confirmation Power Automate flow | NOT STARTED |
 | 3 | JavaScript Account form notification | NOT STARTED |
 | 4 | C# Dataverse console application | NOT STARTED |
@@ -31,7 +31,7 @@ Design the minimal Dataverse data model for the room-planning application before
 
 ### 1. Room-planning Dataverse Model and Model-driven App
 
-Status: NOT STARTED
+Status: IN PROGRESS — Dataverse foundation COMPLETED. Forms, views, model-driven app, representative test data, and end-to-end validation are NOT STARTED.
 
 - Support multiple locations, each containing rooms.
 - Rooms have different maximum capacities.
@@ -107,10 +107,28 @@ Status: NOT STARTED
 ## Completed Work
 
 - Created the initial repository documentation and minimal `.gitignore` baseline.
-- No implementation work has been completed. All implementation items remain NOT STARTED.
+- Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
+
+### Completed Dataverse Foundation
+
+| Table | Primary column | Implemented fields and purpose |
+| --- | --- | --- |
+| Location | Location Name | Represents an office location containing bookable rooms. |
+| Room | Room Name | Location: required lookup to Location. Maximum Capacity: required whole number, minimum 1. Planning Capacity: required whole number, minimum 1. |
+| Booking | Booking Name | Booking Date: required Date Only field. Room: required lookup to Room. Employee: required lookup to the existing Dataverse User (`systemuser`) table. |
+
+- Implemented relationships: Location 1:N Room, Room 1:N Booking, and User 1:N Booking.
+- Planning Capacity represents the allowed occupancy under the 50 percent planning rule.
+- User (`systemuser`) is an existing managed Dataverse system table, not a table created by this project. It appears in the solution because the Employee lookup introduces that dependency.
+- No custom overbooking validation has been implemented; it is not required for the case.
+- Forms, booking/day views, the model-driven app, representative test data, and basic end-to-end booking validation remain NOT STARTED. Roadmap priorities 2–7 remain NOT STARTED.
 
 ## Next Steps
 
-1. Design the minimal Dataverse data model for the room-planning application before creating any tables.
-2. Record the proposed tables, relationships, fields, forms, views, and approach to the conceptual 50% occupancy requirement in `docs/`.
-3. Update this plan as implementation and verification actually occur, following the priority order above.
+1. Configure useful forms for Location, Room, and Booking.
+2. Configure the required booking/day views.
+3. Create the model-driven room-planning app.
+4. Add representative test data.
+5. Validate the basic end-to-end booking experience.
+
+Update this plan as implementation and verification actually occur, following the priority order above.
