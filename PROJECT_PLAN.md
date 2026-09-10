@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Timer-triggered Azure Function — NOT STARTED; implement the next work package according to the requirements below.
+Copilot Studio Account Creator — NOT STARTED; configure the agent and required Dataverse tools.
 
 ## Roadmap and Implementation Status
 
@@ -23,7 +23,7 @@ Timer-triggered Azure Function — NOT STARTED; implement the next work package 
 | 2 | Booking confirmation Power Automate flow | COMPLETED and VERIFIED |
 | 3 | JavaScript Account form notification | COMPLETED and VERIFIED |
 | 4 | C# Dataverse console application | COMPLETED and functionally VERIFIED |
-| 5 | Timer-triggered Azure Function | NOT STARTED |
+| 5 | Timer-triggered Azure Function | COMPLETED and functionally VERIFIED |
 | 6 | Copilot Studio Account Creator | NOT STARTED |
 | 7 | Optional Opportunity notification flow | NOT STARTED |
 
@@ -86,9 +86,10 @@ Status: COMPLETED and functionally VERIFIED based on the user-provided successfu
 
 ### 5. Timer-triggered Azure Function
 
-Status: NOT STARTED
+Status: COMPLETED and functionally VERIFIED based on the user-provided successful two-invocation local Dataverse test.
 
-- Use a timer trigger.
+- Use a timer trigger. Implementation: [AccountNumberingFunction](src/AccountNumberingFunction/README.md), function `NumberDataverseAccounts`, configurable `SMARTPOINT_ACCOUNT_NUMBERING_SCHEDULE`, with `RunOnStartup=false`. Verified with Core Tools 4.13.0, Azurite 3.37.0, and timerTrigger using the temporary local test schedule `*/30 * * * * *`. Authentication with the existing Entra registration and Dataverse application user succeeded. Both timer invocations retrieved 1 Account, assigned SmartPoint Test Account -> 1, persisted `cr0c9_firmennummer` as string `"1"`, and reported `Successfully completed. Updated 1 Accounts.` This verifies numbering restarts at 1 each invocation.
+- Local startup troubleshooting: missing AzureWebJobsStorage required running Azurite with `UseDevelopmentStorage=true`. The error `Worker runtime cannot be 'None'.` was resolved by setting `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated` and using `func start --dotnet-isolated`. Azurite artifacts are ignored by Git.
 - Read all Accounts from Dataverse and sort them alphabetically.
 - Assign sequential company numbers beginning with 1.
 - Store the values in `Firmennummer` and overwrite existing numbers on every run.
@@ -126,7 +127,8 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 5–7 remain NOT STARTED.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 6–7 remain NOT STARTED.
+- Timer-triggered Azure Function: COMPLETED and functionally VERIFIED; two local timer invocations persisted company number `"1"` for SmartPoint Test Account, as recorded in work package 5.
 - C# Account Numbering console application: COMPLETED and functionally VERIFIED; the live run persisted company number `1000` for `SmartPoint Test Account`, as recorded in work package 4.
 - JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
 
@@ -179,6 +181,6 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 ## Next Steps
 
-1. Implement the timer-triggered Azure Function: read Accounts, sort alphabetically, and overwrite company numbers beginning with 1 using OAuth/application-user authentication. Local execution is sufficient. Status: NOT STARTED.
+1. Implement Copilot Studio Account Creator: configure the agent and required Dataverse tools to create Accounts, enabling Web Search where useful for enrichment. Status: NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
