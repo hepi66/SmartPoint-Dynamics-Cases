@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-JavaScript Account Form Notification
+C# Dataverse console application — NOT STARTED.
 
 ## Roadmap and Implementation Status
 
@@ -21,7 +21,7 @@ JavaScript Account Form Notification
 | --- | --- | --- |
 | 1 | Room-planning Dataverse model and model-driven app | COMPLETED to the extent required for the SmartPoint case |
 | 2 | Booking confirmation Power Automate flow | COMPLETED and VERIFIED |
-| 3 | JavaScript Account form notification | NOT STARTED |
+| 3 | JavaScript Account form notification | COMPLETED and VERIFIED |
 | 4 | C# Dataverse console application | NOT STARTED |
 | 5 | Timer-triggered Azure Function | NOT STARTED |
 | 6 | Copilot Studio Account Creator | NOT STARTED |
@@ -50,12 +50,21 @@ Status: COMPLETED and VERIFIED. The saved flow successfully processed a new Book
 
 ### 3. JavaScript Account Form Notification
 
-Status: NOT STARTED
+Status: COMPLETED and VERIFIED based on the user-provided successful Account main form runtime test in the published Account Management app.
 
 - Add a form notification to the Account form on load.
 - Display the required text, substituting the Account name and company number for the placeholders:
 
   "Die aktuelle Firmennummer der Firma **Firmenname** lautet **Firmennummer**."
+
+- Source artifact: [src/javascript/AccountFormNotification.js](src/javascript/AccountFormNotification.js).
+- Handler: `showCompanyNumberNotification(executionContext)`, using `executionContext.getFormContext()`.
+- Field logical names: `name` (Account Name) and `cr0c9_firmennummer` (Firmennummer).
+- Uses `formContext.ui.setFormNotification` with level `INFO` and ID `companyNumberNotification`. Missing attributes, null values, and empty or whitespace-only values suppress the message and clear any previous notification with that ID. Numeric zero is treated as a supplied value.
+- The `Account Form Notification` JavaScript web resource was created in the `Achim Beispiel` unmanaged solution and registered on the Account main form OnLoad event. The script reads Account Name and Firmennummer and displays the required notification.
+- The dedicated `Account Management` model-driven app was created and published to provide a clean runtime test of the Account form.
+- Functional verification succeeded using Account Name `SmartPoint Test Account` and Firmennummer `4711`. The displayed notification was: "Die aktuelle Firmennummer der Firma SmartPoint Test Account lautet 4711."
+- Missing-value handling was checked locally with mocked inputs; no additional Power Apps runtime test of missing values is claimed.
 
 ### 4. C# Dataverse Console Application
 
@@ -109,7 +118,8 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 3–7 remain NOT STARTED.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 4–7 remain NOT STARTED.
+- JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
 
 ### Completed Dataverse Foundation
 
@@ -160,6 +170,6 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 ## Next Steps
 
-1. JavaScript Account Form Notification — NOT STARTED.
+1. C# Dataverse console application — NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
