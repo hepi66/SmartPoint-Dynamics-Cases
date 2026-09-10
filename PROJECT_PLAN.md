@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-C# Dataverse console application — NOT STARTED.
+Timer-triggered Azure Function — NOT STARTED; implement the next work package according to the requirements below.
 
 ## Roadmap and Implementation Status
 
@@ -22,7 +22,7 @@ C# Dataverse console application — NOT STARTED.
 | 1 | Room-planning Dataverse model and model-driven app | COMPLETED to the extent required for the SmartPoint case |
 | 2 | Booking confirmation Power Automate flow | COMPLETED and VERIFIED |
 | 3 | JavaScript Account form notification | COMPLETED and VERIFIED |
-| 4 | C# Dataverse console application | NOT STARTED |
+| 4 | C# Dataverse console application | COMPLETED and functionally VERIFIED |
 | 5 | Timer-triggered Azure Function | NOT STARTED |
 | 6 | Copilot Studio Account Creator | NOT STARTED |
 | 7 | Optional Opportunity notification flow | NOT STARTED |
@@ -68,13 +68,21 @@ Status: COMPLETED and VERIFIED based on the user-provided successful Account mai
 
 ### 4. C# Dataverse Console Application
 
-Status: NOT STARTED
+Status: COMPLETED and functionally VERIFIED based on the user-provided successful live Dataverse execution with starting company number 1000.
 
 - Ask the user for a starting number.
 - Read all Accounts from Dataverse using the .NET SDK.
 - Sort Accounts alphabetically.
 - Assign sequential company numbers beginning with the supplied number.
 - Store the value in the Dataverse field `Firmennummer`.
+
+- Source and run instructions: [src/AccountNumbering/](src/AccountNumbering/README.md). Uses the official Dataverse client 1.2.27, paged Account retrieval, deterministic alphabetical sorting, and sequential string values in `cr0c9_firmennummer` (Single Line of Text).
+- Configuration uses `SMARTPOINT_DATAVERSE_URL`, `SMARTPOINT_TENANT_ID`, `SMARTPOINT_CLIENT_ID`, and `SMARTPOINT_CLIENT_SECRET` environment variables. No secret is stored in the repository.
+- Authentication uses Entra client credentials with `SmartPoint Dataverse Integration 2`, registered as a Dataverse application user in `CRM816895` with the System Administrator role for this practical case.
+- Live verification: starting number `1000`; connection succeeded; 1 accessible Account was retrieved; `SmartPoint Test Account` received `1000`; execution reported `Successfully completed. Updated 1 Accounts.` The value persisted in `cr0c9_firmennummer` as a string because the column is text.
+- This verifies the required prompt-to-persistence workflow, including the implemented alphabetical sorting and sequential numbering path. The live dataset contained one Account; this is not evidence of a separate multi-Account ordering or paging test.
+- The earlier authentication failure was caused by the original Entra application registration not being resolvable by the tenant. A new registration and corresponding Dataverse application user resolved it. No secret values are documented.
+- The initial `AADSTS700016` failure, root-cause isolation, and successful replacement registration are documented in [Account Numbering troubleshooting](src/AccountNumbering/README.md#authentication-failure-aadsts700016).
 
 ### 5. Timer-triggered Azure Function
 
@@ -118,7 +126,8 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 4–7 remain NOT STARTED.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 5–7 remain NOT STARTED.
+- C# Account Numbering console application: COMPLETED and functionally VERIFIED; the live run persisted company number `1000` for `SmartPoint Test Account`, as recorded in work package 4.
 - JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
 
 ### Completed Dataverse Foundation
@@ -170,6 +179,6 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 ## Next Steps
 
-1. C# Dataverse console application — NOT STARTED.
+1. Implement the timer-triggered Azure Function: read Accounts, sort alphabetically, and overwrite company numbers beginning with 1 using OAuth/application-user authentication. Local execution is sufficient. Status: NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
