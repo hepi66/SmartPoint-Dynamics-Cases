@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Copilot Studio Account Creator — NOT STARTED; configure the agent and required Dataverse tools.
+Copilot Studio Account Creator — CONFIGURED, but NOT RUNTIME VERIFIED. Await external clarification on enabling Copilot Studio capacity or accepting the documented configured state for the case.
 
 ## Roadmap and Implementation Status
 
@@ -24,7 +24,7 @@ Copilot Studio Account Creator — NOT STARTED; configure the agent and required
 | 3 | JavaScript Account form notification | COMPLETED and VERIFIED |
 | 4 | C# Dataverse console application | COMPLETED and functionally VERIFIED |
 | 5 | Timer-triggered Azure Function | COMPLETED and functionally VERIFIED |
-| 6 | Copilot Studio Account Creator | NOT STARTED |
+| 6 | Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED — missing credits; external clarification pending |
 | 7 | Optional Opportunity notification flow | NOT STARTED |
 
 ## Requirements
@@ -98,12 +98,17 @@ Status: COMPLETED and functionally VERIFIED based on the user-provided successfu
 
 ### 6. Copilot Studio Account Creator
 
-Status: NOT STARTED
+Status: CONFIGURED, but NOT RUNTIME VERIFIED. Implementation/configuration is complete; runtime verification is blocked by external licensing/capacity, not a demonstrated implementation failure.
 
 - Agent name: `Account Creator`.
 - Allow users to create a new Account in Dataverse.
 - Configure the required Dataverse tools.
 - Enable Web Search where useful for enrichment.
+
+- Configured in `CRM816895` with model `GPT-5 Chat`, Web Search enabled, and the attached `Create Dataverse Account` tool using User authentication, fixed environment/table inputs, and AI-filled Account Name. Other fields are not artificially populated.
+- Preview request `Create an account called SmartPoint Copilot Test Account.` stopped before tool execution with `EnforcementUsageCredits`. No successful Dataverse Account creation is claimed.
+- Administrative checks found 0 current Copilot Credits, no environment capacity allocation, and no pay-as-you-go configuration. Trial activation was deliberately not completed; no billing or organization data was changed. The environment owner/contact has been asked about capacity or acceptance of the configured state; clarification is pending.
+- Configuration, instructions, test evidence, and blocker details: [Account Creator](docs/AccountCreator.md).
 
 ### 7. Optional Opportunity Notification Flow
 
@@ -127,7 +132,8 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Roadmap priorities 6–7 remain NOT STARTED.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Priority 6 is CONFIGURED, but NOT RUNTIME VERIFIED; priority 7 remains NOT STARTED.
+- Copilot Studio Account Creator configuration is complete, including the attached Dataverse tool. Runtime verification remains blocked by missing credits; external clarification is pending.
 - Timer-triggered Azure Function: COMPLETED and functionally VERIFIED; two local timer invocations persisted company number `"1"` for SmartPoint Test Account, as recorded in work package 5.
 - C# Account Numbering console application: COMPLETED and functionally VERIFIED; the live run persisted company number `1000` for `SmartPoint Test Account`, as recorded in work package 4.
 - JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
@@ -181,6 +187,7 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 ## Next Steps
 
-1. Implement Copilot Studio Account Creator: configure the agent and required Dataverse tools to create Accounts, enabling Web Search where useful for enrichment. Status: NOT STARTED.
+1. Await the environment owner/contact's clarification on Copilot Studio capacity or acceptance of the documented configured state. If capacity is enabled, repeat the preview test and verify Account creation in Dataverse before recording runtime success.
+2. Optional Opportunity notification flow remains NOT STARTED.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
