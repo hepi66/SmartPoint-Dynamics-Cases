@@ -193,7 +193,7 @@ This phase consolidates the case into one navigable guide, maps original require
 
 | Case | Implementation | Case Guide | Offline Evidence | Demo Ready |
 | --- | --- | --- | --- | --- |
-| 1. Room Planning | COMPLETED to case scope | CREATED | PENDING | PENDING |
+| 1. Room Planning | COMPLETED to case scope | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two runtime screenshots | PENDING |
 | 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
 | 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
@@ -201,7 +201,7 @@ This phase consolidates the case into one navigable guide, maps original require
 | 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
 | 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
 
-No screenshots have been supplied. The evidence directory contains instructions only. Case 7's page reserves a future evidence slot but has no available implementation result. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
+Two supplied Room Planning runtime screenshots are linked in [Case 01](docs/case-guide/01-room-planning.md), showing the room capacities and Today's Bookings. Case 01 demo readiness remains pending; screenshots do not establish a restart rehearsal. Case 7's page reserves a future evidence slot but has no available implementation result. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
 
 Demo Ready can become complete only after the implementation status is understood, navigation/restart instructions are sufficient, primary offline evidence exists, and the intended demonstration path is known. Confirm these through a restart rehearsal rather than inferring readiness from documentation.
 
