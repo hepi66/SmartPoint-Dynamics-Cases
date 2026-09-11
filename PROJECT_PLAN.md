@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Copilot Studio Account Creator — CONFIGURED, but NOT RUNTIME VERIFIED. Await external clarification on enabling Copilot Studio capacity or accepting the documented configured state for the case.
+Case Consolidation and Demonstration Readiness while awaiting external clarification for Copilot Studio runtime capacity. If capacity is resolved, completing Copilot Studio runtime verification has immediate priority.
 
 ## Roadmap and Implementation Status
 
@@ -185,9 +185,33 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 5. The Mail action was replaced with Office 365 Outlook — `Send an email (V2)`, and the existing dynamic values were restored: Employee Primary Email, Booking Date, and Room Name.
 6. After saving the updated flow, a new Booking triggered it successfully; all four stages completed and the received email contained the correct booking date and room. Office 365 Outlook is the final working mail connector.
 
+## Case Consolidation and Demonstration Readiness
+
+Status: IN PROGRESS. The [central Case Guide](docs/case-guide/README.md) and all seven case pages are CREATED. Existing implementation statuses and verified history remain unchanged; guide creation is not runtime verification.
+
+This phase consolidates the case into one navigable guide, maps original requirements to implementations, documents where to find them, prepares offline evidence and a safe repeatable demo sequence, supplies concise interview notes and three illustrative real-world use cases per component, and checks that the completed work can be found and demonstrated after restart without chat history.
+
+| Case | Implementation | Case Guide | Offline Evidence | Demo Ready |
+| --- | --- | --- | --- | --- |
+| 1. Room Planning | COMPLETED to case scope | CREATED | PENDING | PENDING |
+| 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
+| 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
+| 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
+| 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
+| 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
+| 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
+
+No screenshots have been supplied. The evidence directory contains instructions only. Case 7's page reserves a future evidence slot but has no available implementation result. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
+
+Demo Ready can become complete only after the implementation status is understood, navigation/restart instructions are sufficient, primary offline evidence exists, and the intended demonstration path is known. Confirm these through a restart rehearsal rather than inferring readiness from documentation.
+
+Preserve detailed component documentation as the technical reference. Capture missing verified navigation details and the actual Azurite startup command, collect sanitized screenshots, and account for the console, timer and notification sharing the same company-number field. Copilot runtime verification has immediate priority if external capacity is resolved. The optional Opportunity flow remains planned and is not implemented in this phase.
+
 ## Next Steps
 
-1. Await the environment owner/contact's clarification on Copilot Studio capacity or acceptance of the documented configured state. If capacity is enabled, repeat the preview test and verify Account creation in Dataverse before recording runtime success.
-2. Optional Opportunity notification flow remains NOT STARTED.
+1. Consolidate missing navigation/restart details and collect one sanitized primary screenshot per implemented/configured case. Link real evidence in the Case Guide and update this phase's table conservatively.
+2. Prepare and rehearse the final restart/demo sequence without relying on chat history; preserve pending readiness until its criteria are met.
+3. Await external clarification for Copilot Studio capacity. If resolved, prioritize its runtime test immediately and verify the created Account before recording success.
+4. Optional Opportunity notification flow remains planned and NOT STARTED; no implementation is included in this phase.
 
 Update this plan as implementation and verification actually occur, following the priority order above.

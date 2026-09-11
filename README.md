@@ -12,3 +12,5 @@ The scope covers a room-planning Dataverse model and model-driven app, booking c
 The [Account notification source](src/javascript/AccountFormNotification.js) is deployed as the `Account Form Notification` web resource and registered on the Account main form OnLoad event. `showCompanyNumberNotification` reads `name` and `cr0c9_firmennummer` through the execution context. The published `Account Management` app was used for successful functional verification with `SmartPoint Test Account` and company number `4711`.
 
 Implementation notes belong in [docs/](docs/README.md), and source code belongs in [src/](src/README.md). This repository is completely separate from `Dynamics365-Learning-Lab`.
+
+Start with the [central SmartPoint Case Guide](docs/case-guide/README.md) for case navigation, recorded results, interview notes and demonstration-readiness tracking.
