@@ -88,14 +88,14 @@ Status: COMPLETED and functionally VERIFIED based on successful live Dataverse e
 
 ### 5. Timer-triggered Azure Function
 
-Status: COMPLETED and functionally VERIFIED based on the user-provided successful two-invocation local Dataverse test.
+Status: COMPLETED and functionally VERIFIED based on the final 2026-09-12 three-Account local Dataverse test with two successful timer invocations.
 
-- Use a timer trigger. Implementation: [AccountNumberingFunction](src/AccountNumberingFunction/README.md), function `NumberDataverseAccounts`, configurable `SMARTPOINT_ACCOUNT_NUMBERING_SCHEDULE`, with `RunOnStartup=false`. Verified with Core Tools 4.13.0, Azurite 3.37.0, and timerTrigger using the temporary local test schedule `*/30 * * * * *`. Authentication with the existing Entra registration and Dataverse application user succeeded. Both timer invocations retrieved 1 Account, assigned SmartPoint Test Account -> 1, persisted `cr0c9_firmennummer` as string `"1"`, and reported `Successfully completed. Updated 1 Accounts.` This verifies numbering restarts at 1 each invocation.
+- Use a timer trigger. Implementation: [AccountNumberingFunction](src/AccountNumberingFunction/README.md), function `NumberDataverseAccounts`, configurable `SMARTPOINT_ACCOUNT_NUMBERING_SCHEDULE`, with `RunOnStartup=false`. Verified with Core Tools 4.13.0, Azurite 3.37.0, and timerTrigger using the temporary local test schedule `*/30 * * * * *`. Authentication with the existing Entra registration and Dataverse application user succeeded. In the final 2026-09-12 test, both timer invocations processed three Accounts alphabetically and reported `Successfully completed. Updated 3 Accounts.` Existing Case 04 values were overwritten: `Alpha Test Account` 3000 → 1, `SmartPoint Test Account` 3001 → 2, `Zebra Test Account` 3002 → 3. Account Management confirmed the persisted string values. This verifies overwrite behavior and numbering restarting at 1 each invocation. Two final screenshots are linked in [Case 05](docs/case-guide/05-account-numbering-function.md); documentation is REVIEWED and APPROVED by the user; demo rehearsal remains PENDING. Paging is implemented but multiple pages were not exercised by this test.
 - Local startup troubleshooting: missing AzureWebJobsStorage required running Azurite with `UseDevelopmentStorage=true`. The error `Worker runtime cannot be 'None'.` was resolved by setting `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated` and using `func start --dotnet-isolated`. Azurite artifacts are ignored by Git.
 - Read all Accounts from Dataverse and sort them alphabetically.
 - Assign sequential company numbers beginning with 1.
 - Store the values in `Firmennummer` and overwrite existing numbers on every run.
-- Local execution is sufficient.
+- Local execution satisfies the case requirement; Azure deployment was not required.
 - Use OAuth/application-user authentication.
 
 ### 6. Copilot Studio Account Creator
@@ -199,7 +199,7 @@ This phase consolidates the case into one navigable guide, maps original require
 | 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — three screenshots | PENDING |
 | 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
-| 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
+| 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two final screenshots | PENDING |
 | 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
 | 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
 
