@@ -69,7 +69,7 @@ Status: COMPLETED and VERIFIED based on the user-provided successful Account mai
 
 ### 4. C# Dataverse Console Application
 
-Status: COMPLETED and functionally VERIFIED based on the user-provided successful live Dataverse execution with starting company number 1000.
+Status: COMPLETED and functionally VERIFIED based on successful live Dataverse execution, most recently the user-provided final three-Account verification with starting company number 3000.
 
 - Ask the user for a starting number.
 - Read all Accounts from Dataverse using the .NET SDK.
@@ -81,7 +81,8 @@ Status: COMPLETED and functionally VERIFIED based on the user-provided successfu
 - Configuration uses `SMARTPOINT_DATAVERSE_URL`, `SMARTPOINT_TENANT_ID`, `SMARTPOINT_CLIENT_ID`, and `SMARTPOINT_CLIENT_SECRET` environment variables. No secret is stored in the repository.
 - Authentication uses Entra client credentials with `SmartPoint Dataverse Integration 2`, registered as a Dataverse application user in `CRM816895` with the System Administrator role for this practical case.
 - Live verification: starting number `1000`; connection succeeded; 1 accessible Account was retrieved; `SmartPoint Test Account` received `1000`; execution reported `Successfully completed. Updated 1 Accounts.` The value persisted in `cr0c9_firmennummer` as a string because the column is text.
-- This verifies the required prompt-to-persistence workflow, including the implemented alphabetical sorting and sequential numbering path. The live dataset contained one Account; this is not evidence of a separate multi-Account ordering or paging test.
+- Final Case 04 verification: the user supplied only starting number `3000`; three Accounts were processed alphabetically and persisted as `Alpha Test Account` = `3000`, `SmartPoint Test Account` = `3001`, `Zebra Test Account` = `3002`. The console reported `Successfully completed. Updated 3 Accounts.` Account Management displayed the same mapping. Two final screenshots are linked in [Case 04](docs/case-guide/04-account-numbering-console.md); documentation is reviewed and approved by the user; restart/live demo rehearsal remains PENDING.
+- This verifies the prompt-to-persistence workflow, multi-Account alphabetical processing and sequential numbering. Paging is implemented but was not exercised across multiple pages by the three-record test.
 - The earlier authentication failure was caused by the original Entra application registration not being resolvable by the tenant. A new registration and corresponding Dataverse application user resolved it. No secret values are documented.
 - The initial `AADSTS700016` failure, root-cause isolation, and successful replacement registration are documented in [Account Numbering troubleshooting](src/AccountNumbering/README.md#authentication-failure-aadsts700016).
 
@@ -197,7 +198,7 @@ This phase consolidates the case into one navigable guide, maps original require
 | 1. Room Planning | COMPLETED to case scope | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two runtime screenshots | PENDING |
 | 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — three screenshots | PENDING |
 | 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
-| 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
+| 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
 | 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
 | 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
