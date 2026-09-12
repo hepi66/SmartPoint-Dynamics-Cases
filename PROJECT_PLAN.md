@@ -43,7 +43,7 @@ Status: COMPLETED to the extent required for the SmartPoint case. The Dataverse 
 
 ### 2. Booking Confirmation Power Automate Flow
 
-Status: COMPLETED and VERIFIED. The saved flow successfully processed a new Booking and delivered the confirmation email to the user's Microsoft 365 mailbox. Implementation, verification, and troubleshooting are recorded under Completed Work.
+Status: COMPLETED and VERIFIED, including successful replacement-flow recovery and end-to-end verification on 2026-09-12. The final enabled flow successfully processed a new Booking and delivered the confirmation email to the user's Microsoft 365 mailbox. Implementation, verification, and troubleshooting are recorded under Completed Work.
 
 - Trigger when a booking is created.
 - Send the employee a confirmation email for the booked day.
@@ -170,12 +170,12 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 ### Verified Booking Confirmation Flow
 
-- Flow name: `Booking Confirmation`; environment: `CRM816895`.
+- Flow name: `Booking Confirmation`; environment: `CRM816895`; unmanaged solution: `Achim Beispiel`. The solution contains exactly one enabled Booking Confirmation cloud flow.
 - Trigger: Microsoft Dataverse — `When a row is added, modified or deleted`, configured to react to creation of a Booking record.
 - The Booking contains Employee and Room lookups. A Dataverse `Get a row by ID` action resolves the Employee/User record; the Employee's Primary Email supplies the recipient.
 - A second Dataverse `Get a row by ID` action resolves the Room record; Room Name supplies the room text. Booking Date comes from the Booking record.
 - Email action: Office 365 Outlook — `Send an email (V2)`. Subject: `Room booking confirmation`. The body contains confirmation text, Booking Date, and Room Name.
-- The flow was successfully saved and tested end-to-end using a new Booking named `Flow Test`, dated `2026-09-09`, for room `Graz Meeting Room 01` and employee `Achim Hepberger`.
+- Final end-to-end verification on `2026-09-12` used Booking `Booking Confirmation Demo Test`, Booking Date `2026-09-12`, room `Graz Meeting Room 01`, and employee `Achim Hepberger`. All four replacement-flow steps succeeded and the email with subject `Room booking confirmation`, the correct date and room was received. After verification, the replacement was renamed from `Booking Confirmation Demo` to `Booking Confirmation`. Documentation remains REVIEWED and APPROVED; demo rehearsal remains PENDING.
 - All four flow stages completed successfully, and the confirmation email was actually received in the user's Microsoft 365 mailbox with the correct booking date and room. This constitutes functional verification of the SmartPoint booking-confirmation requirement.
 
 ### Booking Confirmation Troubleshooting History
@@ -186,6 +186,8 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 4. A separate issue occurred during the first execution: the initially selected generic Mail action, `Send an email notification (V3)`, failed with Microsoft's message that the Mail connector is currently restricted for new tenants and suggested alternatives such as Office 365 Outlook.
 5. The Mail action was replaced with Office 365 Outlook — `Send an email (V2)`, and the existing dynamic values were restored: Employee Primary Email, Booking Date, and Room Name.
 6. After saving the updated flow, a new Booking triggered it successfully; all four stages completed and the received email contained the correct booking date and room. Office 365 Outlook is the final working mail connector.
+
+7. Later stale-host recovery (2026-09-12): the original flow failed with `UnresolvableHostName` / `HostNotFound` and referenced a stale Dataverse hostname. Reauthentication did not resolve it. A fresh copy with rebound Dataverse connections succeeded end-to-end; the original was deactivated and deleted. This resolved the connection/runtime issue without establishing a more specific internal Power Platform root cause; the business logic had already worked in the earlier test.
 
 ## Case Consolidation and Demonstration Readiness
 
