@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-Case Consolidation and Demonstration Readiness while awaiting external clarification for Copilot Studio runtime capacity. If capacity is resolved, completing Copilot Studio runtime verification has immediate priority.
+Case Consolidation and Demonstration Readiness: prepare the separate overall case review and restart/live demonstration rehearsal.
 
 ## Roadmap and Implementation Status
 
@@ -24,7 +24,7 @@ Case Consolidation and Demonstration Readiness while awaiting external clarifica
 | 3 | JavaScript Account form notification | COMPLETED and VERIFIED |
 | 4 | C# Dataverse console application | COMPLETED and functionally VERIFIED |
 | 5 | Timer-triggered Azure Function | COMPLETED and functionally VERIFIED |
-| 6 | Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED — missing credits; external clarification pending |
+| 6 | Copilot Studio Account Creator | COMPLETED and end-to-end VERIFIED |
 | 7 | Optional Opportunity notification flow | NOT STARTED |
 
 ## Requirements
@@ -100,17 +100,13 @@ Status: COMPLETED and functionally VERIFIED based on the final 2026-09-12 three-
 
 ### 6. Copilot Studio Account Creator
 
-Status: CONFIGURED, but NOT RUNTIME VERIFIED. Implementation/configuration is complete; runtime verification is blocked by external licensing/capacity, not a demonstrated implementation failure.
+Status: COMPLETED and end-to-end VERIFIED in Copilot Studio on 2026-09-12. Publishing/deployment is not claimed.
 
-- Agent name: `Account Creator`.
-- Allow users to create a new Account in Dataverse.
-- Configure the required Dataverse tools.
-- Enable Web Search where useful for enrichment.
-
-- Configured in `CRM816895` with model `GPT-5 Chat`, Web Search enabled, and the attached `Create Dataverse Account` tool using User authentication, fixed environment/table inputs, and AI-filled Account Name. Other fields are not artificially populated.
-- Preview request `Create an account called SmartPoint Copilot Test Account.` stopped before tool execution with `EnforcementUsageCredits`. No successful Dataverse Account creation is claimed.
-- Administrative checks found 0 current Copilot Credits, no environment capacity allocation, and no pay-as-you-go configuration. Trial activation was deliberately not completed; no billing or organization data was changed. The environment owner/contact has been asked about capacity or acceptance of the configured state; clarification is pending.
-- Configuration, instructions, test evidence, and blocker details: [Account Creator](docs/AccountCreator.md).
+- Final tested agent: `Account Creator Standard Test`, environment `CRM816895`, model `GPT-5.5 Chat`.
+- Enabled Microsoft Dataverse add-row tool: fixed environment `CRM816895`, fixed Accounts table, Account Name dynamically filled by AI. Instructions require asking for missing/ambiguous names, avoiding invented business data and confirming creation.
+- Request `Create an account called SmartPoint Copilot Final Test.` succeeded. The agent returned Account ID `fc0e3ee7-9cae-f111-aaac-7c1e5206403d`, Active status, creation time `2026-09-12 11:27 UTC`, and owner Achim Hepberger. Account Management confirmed that the Account exists in Dataverse.
+- Two screenshots and final instructions are in [Case 06](docs/case-guide/06-account-creator.md). Documentation is REVIEWED and APPROVED by the user; demo rehearsal remains PENDING. Ambiguous-name handling and web enrichment were not separately runtime-tested.
+- Earlier `EnforcementUsageCredits` prevented tool execution when no credits were available. That attempt is historical, not the final implementation status. No specific licensing change is inferred. Earlier configuration and capacity findings remain in [Account Creator notes](docs/AccountCreator.md).
 
 ### 7. Optional Opportunity Notification Flow
 
@@ -134,8 +130,8 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Priority 6 is CONFIGURED, but NOT RUNTIME VERIFIED; priority 7 remains NOT STARTED.
-- Copilot Studio Account Creator configuration is complete, including the attached Dataverse tool. Runtime verification remains blocked by missing credits; external clarification is pending.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Priority 6 is COMPLETED and end-to-end VERIFIED; priority 7 remains NOT STARTED.
+- Copilot Studio Account Creator: COMPLETED and end-to-end VERIFIED; the final standard-agent test created `SmartPoint Copilot Final Test`, subsequently visible in Account Management, as recorded in work package 6.
 - Timer-triggered Azure Function: COMPLETED and functionally VERIFIED; two local timer invocations persisted company number `"1"` for SmartPoint Test Account, as recorded in work package 5.
 - C# Account Numbering console application: COMPLETED and functionally VERIFIED; the live run persisted company number `1000` for `SmartPoint Test Account`, as recorded in work package 4.
 - JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
@@ -202,20 +198,20 @@ This phase consolidates the case into one navigable guide, maps original require
 | 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two final screenshots | PENDING |
-| 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
+| 6. Copilot Studio Account Creator | COMPLETED and end-to-end VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
 
 Two supplied Room Planning runtime screenshots are linked in [Case 01](docs/case-guide/01-room-planning.md), showing the room capacities and Today's Bookings. Case 01 demo readiness remains pending; screenshots do not establish a restart rehearsal. Case 7's page reserves a future evidence slot but has no available implementation result. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
 
 Demo Ready can become complete only after the implementation status is understood, navigation/restart instructions are sufficient, primary offline evidence exists, and the intended demonstration path is known. Confirm these through a restart rehearsal rather than inferring readiness from documentation.
 
-Preserve detailed component documentation as the technical reference. Capture missing verified navigation details and the actual Azurite startup command, collect sanitized screenshots, and account for the console, timer and notification sharing the same company-number field. Copilot runtime verification has immediate priority if external capacity is resolved. The optional Opportunity flow remains planned and is not implemented in this phase.
+Preserve detailed component documentation as the technical reference. Capture missing verified navigation details and the actual Azurite startup command, collect sanitized screenshots, and account for the console, timer and notification sharing the same company-number field. Copilot end-to-end verification is complete; publishing is not claimed. The optional Opportunity flow remains planned and is not implemented in this phase.
 
 ## Next Steps
 
 1. Consolidate missing navigation/restart details and collect one sanitized primary screenshot per implemented/configured case. Link real evidence in the Case Guide and update this phase's table conservatively.
 2. Prepare and rehearse the final restart/demo sequence without relying on chat history; preserve pending readiness until its criteria are met.
-3. Await external clarification for Copilot Studio capacity. If resolved, prioritize its runtime test immediately and verify the created Account before recording success.
+3. Include the verified Case 06 agent-to-Dataverse result in the separate overall case review and demonstration preparation.
 4. Optional Opportunity notification flow remains planned and NOT STARTED; no implementation is included in this phase.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
