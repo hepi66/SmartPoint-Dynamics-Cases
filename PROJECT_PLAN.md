@@ -64,6 +64,7 @@ Status: COMPLETED and VERIFIED based on the user-provided successful Account mai
 - The `Account Form Notification` JavaScript web resource was created in the `Achim Beispiel` unmanaged solution and registered on the Account main form OnLoad event. The script reads Account Name and Firmennummer and displays the required notification.
 - The dedicated `Account Management` model-driven app was created and published to provide a clean runtime test of the Account form.
 - Functional verification succeeded using Account Name `SmartPoint Test Account` and Firmennummer `4711`. The displayed notification was: "Die aktuelle Firmennummer der Firma SmartPoint Test Account lautet 4711."
+- Current Case 03 runtime verification: `SmartPoint Test Account` shows Firmennummer `1` and the matching notification "Die aktuelle Firmennummer der Firma SmartPoint Test Account lautet 1." Later account-numbering work changed the earlier `4711` value to `1`. Runtime and OnLoad configuration screenshots are linked in [Case 03](docs/case-guide/03-javascript-account-notification.md).
 - Missing-value handling was checked locally with mocked inputs; no additional Power Apps runtime test of missing values is claimed.
 
 ### 4. C# Dataverse Console Application
@@ -195,7 +196,7 @@ This phase consolidates the case into one navigable guide, maps original require
 | --- | --- | --- | --- | --- |
 | 1. Room Planning | COMPLETED to case scope | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two runtime screenshots | PENDING |
 | 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — three screenshots | PENDING |
-| 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
+| 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
 | 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
 | 6. Copilot Studio Account Creator | CONFIGURED, but NOT RUNTIME VERIFIED | CREATED | PENDING | BLOCKED / PENDING EXTERNAL CLARIFICATION |
