@@ -194,7 +194,7 @@ This phase consolidates the case into one navigable guide, maps original require
 | Case | Implementation | Case Guide | Offline Evidence | Demo Ready |
 | --- | --- | --- | --- | --- |
 | 1. Room Planning | COMPLETED to case scope | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two runtime screenshots | PENDING |
-| 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
+| 2. Booking Confirmation | COMPLETED and VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — three screenshots | PENDING |
 | 3. JavaScript Account Notification | COMPLETED and VERIFIED | CREATED | PENDING | PENDING |
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
 | 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED | PENDING | PENDING |
