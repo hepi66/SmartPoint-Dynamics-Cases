@@ -39,3 +39,39 @@ The final repeatable sequence will be captured and checked after restart. It is 
 The Account notification, console and timer use the same company-number field. Their historical test values 4711, 1000 and 1 belong to different runs. Stop the timer before showing another numbering result and define the intended values and order in the final sequence. Do not treat the historical booking date as today's date.
 
 Collect and link one primary screenshot per case by default. Use dedicated demonstration data and avoid unnecessary personal information. Complete a restart rehearsal before marking a case Demo Ready. Present the successful Case 06 test and persisted Account; do not imply that the agent was published. Present the optional flow as evaluated and intentionally not implemented due to the verified environment limitation.
+
+## Combined PDF from VS Code
+
+The seven individual case Markdown files remain authoritative. Run the small merge script before each export; never edit or maintain the generated `00-complete-case-guide.md` manually. It contains only Cases 01–07 in order. Linked repository references are not imported. Personal preparation files are excluded from the merge and the formal PDF.
+
+### Setup (once)
+
+Install **Markdown PDF** by **yzane** (extension ID `yzane.markdown-pdf`) in VS Code Extensions. No include extension, Python, Node package installation or documentation framework is needed. The script runs with Windows PowerShell or PowerShell in the integrated terminal.
+
+The extension uses Chromium for export; complete the first export before relying on an offline presentation workflow. Its current release can use an installed Chrome/Edge browser or download Chromium. See the [extension documentation](https://github.com/yzane/vscode-markdown-pdf) for setup and troubleshooting.
+
+### Generate, preview and export
+
+1. Open this repository folder in VS Code and save any edits to the individual cases.
+2. In the integrated PowerShell terminal at the repository root, run:
+
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\docs\case-guide\Build-CompleteCaseGuide.ps1
+   ```
+
+   The execution-policy option applies only to this process. The script reads exactly the seven named sources, checks their evidence paths and writes the disposable combined Markdown beside them. It does not copy images or embed Base64 data.
+
+3. Open `docs/case-guide/00-complete-case-guide.md`. Press **Ctrl+Shift+V** for VS Code's built-in Markdown Preview. Check Cases 01–07 and all 13 evidence images. Their existing `evidence/...` paths and approximately 80% widths are preserved.
+4. In VS Code Settings, filter by `@ext:yzane.markdown-pdf`. Keep **Include Default Styles** enabled, set **Format** to `A4`, disable **Display Header Footer**, and leave **Output Directory** empty so the PDF is written beside the Markdown. These are local settings; do not commit them.
+5. Return to the combined Markdown editor. Press **Ctrl+Shift+P** and select **Markdown PDF: Export (pdf)** (shown as `markdown-pdf: Export (pdf)` in some versions).
+6. Open `docs/case-guide/00-complete-case-guide.pdf` and check every screenshot, code block and page break before sharing. After source edits, repeat the merge and export; exporting an old combined file does not refresh it automatically.
+
+Both generated files are ignored by Git. Keep the PDF at that path as a local output, not repository source material. Do not export the entire `docs/` directory or include the preparation documents. The script fails if an expected evidence image is missing or excluded preparation content is detected.
+
+### Rendering and limitations
+
+This workflow deliberately produces ordinary Markdown for built-in Preview and export. It does not use `${include ...}$` or depend on an extension-specific include renderer. Markdown PDF documents its own include syntax, but that is unnecessary here and does not provide built-in VS Code Preview expansion.
+
+The PDF uses the extension's default Markdown styles rather than capturing the current Preview. Fonts, highlighting, theme colors, wrapping and pagination can differ. Existing relative repository links remain useful in the local Markdown but are not portable attachments in a shared PDF. Images are included in the PDF, while their original PNG files remain the only image sources in the repository.
+
+Merge and path checks can run without the extension. Successful PDF rendering must still be checked in VS Code; these instructions do not claim that an export has already been visually verified.

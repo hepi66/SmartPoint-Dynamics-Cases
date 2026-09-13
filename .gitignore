@@ -33,3 +33,10 @@ AzuriteConfig
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Disposable combined Case Guide and local PDF export
+/docs/case-guide/00-complete-case-guide.md
+/docs/case-guide/00-complete-case-guide.pdf
+/docs/case-guide/00-complete-case-guide.html
+/docs/case-guide/00-complete-case-guide.jpeg
+/docs/case-guide/00-complete-case-guide.png
