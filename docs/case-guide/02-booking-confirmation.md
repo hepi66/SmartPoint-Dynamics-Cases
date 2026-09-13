@@ -79,19 +79,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Confirm an equipment reservation to its requester.
 3. Notify an employee that a training registration was saved.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain what triggers Booking Confirmation and outline its four steps.
-- [ ] Explain why related Employee/User data is retrieved for the confirmation.
-- [ ] Explain why related Room data is retrieved for the confirmation.
-- [ ] Identify the recipient, booking date and room in the received email.
-- [ ] Explain Dataverse's data role versus Outlook's delivery role.
-- [ ] Explain why the successful run and received email establish end-to-end success.
-- [ ] Navigate to the flow overview, run history and a specific run.
-- [ ] Interpret green/successful steps versus retrying or failed actions.
-- [ ] Explain hostname troubleshooting without assuming a business-data error.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 **Working mail connector:** Use Office 365 Outlook `Send an email (V2)`. Earlier setup encountered an XRM metadata/connectivity issue and a separate new-tenant restriction on the generic Mail V3 action.
 

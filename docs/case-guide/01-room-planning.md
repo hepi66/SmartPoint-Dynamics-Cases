@@ -74,20 +74,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Shared meeting-room booking for internal teams.
 3. Training-room planning using room capacity information.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain why Location, Room and Booking are separate tables.
-- [ ] Explain the Location → Room → Booking one-to-many relationships.
-- [ ] Explain why Employee references the existing User table.
-- [ ] Explain why Date Only represents a whole-day reservation.
-- [ ] Explain why Maximum Capacity and Planning Capacity are separate fields.
-- [ ] Explain how 10 maximum / 5 planning represents the 50% requirement.
-- [ ] Explain Today's Bookings: active bookings, today's date and ascending Booking Date.
-- [ ] Explain why informational Planning Capacity allows a sixth booking.
-- [ ] Explain why custom overbooking validation is deliberately outside scope.
-- [ ] Navigate to the runtime app and the solution in the maker portal.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 - Prepare current-date demo data before showing Today's Bookings; bookings for other dates will not appear.
 - Planning Capacity is informational, so a booking above the planning number is expected to save.

@@ -70,20 +70,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Display a contextual account-handling reminder on form load.
 3. Highlight a missing business identifier to a data steward.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain what triggers the JavaScript and where OnLoad is configured.
-- [ ] Explain executionContext, formContext and why context must be passed.
-- [ ] Explain where Account Name and Firmennummer values come from.
-- [ ] Explain why code uses `name` and `cr0c9_firmennummer`, not display labels.
-- [ ] Explain how the sentence is constructed and displayed as INFO.
-- [ ] Explain the stable notification ID and targeted clearing.
-- [ ] Explain what happens when an attribute or required value is missing.
-- [ ] Locate the web resource, source file and enabled OnLoad handler.
-- [ ] Demonstrate the matching field and notification values in Account Management.
-- [ ] Distinguish Dataverse data storage from client-side form behavior.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 **If the notification does not appear:**
 

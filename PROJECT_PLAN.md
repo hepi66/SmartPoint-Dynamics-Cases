@@ -191,7 +191,7 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 Status: IN PROGRESS. The [central Case Guide](docs/case-guide/README.md) and all seven case pages are CREATED. Existing implementation statuses and verified history remain unchanged; guide creation is not runtime verification.
 
-This phase consolidates the case into one navigable guide, maps original requirements to implementations, documents where to find them, prepares offline evidence and a safe repeatable demo sequence, supplies concise interview notes and three illustrative real-world use cases per implemented component, and checks that the completed work can be found and demonstrated after restart without chat history.
+This phase consolidates the case into one navigable guide, maps original requirements to implementations, documents where to find them, prepares offline evidence and a safe repeatable demo sequence, supplies three illustrative real-world use cases per implemented component, and checks that the completed work can be found and demonstrated after restart without chat history.
 
 | Case | Implementation | Case Guide | Offline Evidence | Demo Ready |
 | --- | --- | --- | --- | --- |

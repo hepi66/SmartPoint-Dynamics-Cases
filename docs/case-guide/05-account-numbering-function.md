@@ -125,22 +125,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Refresh derived account classifications overnight.
 3. Reconcile reference values periodically with an external system.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain why a timer-triggered Function fits scheduled automation.
-- [ ] Explain the isolated worker and the role of timerTrigger.
-- [ ] Explain the schedule and why RunOnStartup is false.
-- [ ] Explain Azurite, local storage and the two-terminal startup.
-- [ ] Explain and restore the seven environment variables without exposing secrets.
-- [ ] Explain OAuth credentials, the Application User and its permissions.
-- [ ] Explain Account retrieval, paging, alphabetical sorting and ID tie-breaking.
-- [ ] Explain why every invocation starts at 1 without user input.
-- [ ] Explain string values in Firmennummer and overwrite/partial-update behavior.
-- [ ] Contrast Case 04's supplied start with Case 05's fixed start.
-- [ ] Explain what the runtime and persisted-result screenshots prove.
-- [ ] Explain why local execution satisfies the case without Azure deployment.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 1. **Missing configuration:** Run the seven boolean checks in the Function terminal. True proves presence, not validity; restore absent values before starting the host.
 2. **Authentication/Dataverse connection failure:** Check the current URL, tenant/client IDs, secret validity/expiry and active Application User permissions. Re-enter the secret securely if needed. Use redacted diagnostics; never show secrets or tokens in logs or screenshots.

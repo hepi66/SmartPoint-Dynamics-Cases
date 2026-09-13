@@ -38,14 +38,4 @@ A custom substitute would not faithfully implement the standard sales Opportunit
 
 This is a deliberate scope decision, not a failed implementation. No Opportunity flow, email delivery or runtime result is claimed. [PROJECT_PLAN.md](../../PROJECT_PLAN.md) records this decision; Cases 01–06 retain their existing statuses.
 
-## 6. What I Should Be Able to Explain
-
-- Distinguish the intended event-to-email design from implemented functionality.
-- Explain why the standard Opportunity table was required and how its absence was checked.
-- Explain why neither a custom replacement nor an unverified Sales/demo package was introduced.
-
-Suggested interview/demo explanation:
-
-> I intended to use the standard Opportunity table rather than creating a custom substitute. Because that table is not provisioned in the provided environment, I chose not to alter the environment by installing an unverified Sales/demo package solely for an optional exercise.
-
 [Back to Case Guide](README.md)

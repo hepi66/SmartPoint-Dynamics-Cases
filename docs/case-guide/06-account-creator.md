@@ -92,18 +92,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Guide sales staff through collecting an account name.
 3. Support intake assistants that ask for missing business information before saving.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Locate the tested agent, instructions, tool and test pane.
-- [ ] Distinguish conversational instructions from a tool that writes Dataverse data.
-- [ ] Explain fixed environment/table inputs versus AI-filled Account Name.
-- [ ] Explain why missing business information must not be invented.
-- [ ] Trace the request through tool execution to the visible Account.
-- [ ] Explain what the agent response and Account Management screenshot each demonstrate.
-- [ ] Distinguish the earlier credit blocker from the successful final test.
-- [ ] Distinguish testing from publishing and untested enrichment capabilities.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 1. **Wrong agent or environment:** Select `Account Creator Standard Test` in `CRM816895`; the earlier configuration used another agent name/model.
 2. **Tool unavailable or creation fails:** Check that the Dataverse tool is enabled, targets `CRM816895` / Accounts, and receives Account Name from the request. Inspect the tool connection and its access if execution reports an error.

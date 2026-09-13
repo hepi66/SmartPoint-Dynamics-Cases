@@ -13,4 +13,4 @@ The [Account notification source](src/javascript/AccountFormNotification.js) is 
 
 Implementation notes belong in [docs/](docs/README.md), and source code belongs in [src/](src/README.md). This repository is completely separate from `Dynamics365-Learning-Lab`.
 
-Start with the [central SmartPoint Case Guide](docs/case-guide/README.md) for case navigation, recorded results, interview notes and demonstration-readiness tracking.
+Start with the [central SmartPoint Case Guide](docs/case-guide/README.md) for case navigation, recorded results and demonstration-readiness tracking.

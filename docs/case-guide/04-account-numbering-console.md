@@ -103,22 +103,7 @@ Explanatory examples only; these are not additional implemented SmartPoint funct
 2. Perform a controlled one-off master-data correction.
 3. Populate identifiers before an integration handover.
 
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain why a console suits a manually controlled batch maintenance task.
-- [ ] Explain ServiceClient, QueryExpression, Entity and SDK Update operations.
-- [ ] Explain Entra credentials, the Dataverse Application User and its security role.
-- [ ] Explain the four environment variables and why secrets stay out of source.
-- [ ] Restore session configuration after opening a fresh terminal.
-- [ ] Explain Account retrieval and why paging is necessary.
-- [ ] Explain case-insensitive alphabetical sorting and the Account ID tie-breaker.
-- [ ] Explain why the user enters only one starting number and how the program generates subsequent numbers.
-- [ ] Explain the logical name `cr0c9_firmennummer` and string conversion.
-- [ ] Explain persistence, overwrite behavior and partial completion on failure.
-- [ ] Explain how the three-Account console output demonstrates alphabetical processing and how the Account Management list confirms the persisted mapping.
-- [ ] Distinguish Case 04's user-supplied start from Case 05's fixed start.
-
-## 10. Troubleshooting and Important Notes
+## 9. Troubleshooting and Important Notes
 
 1. **Missing configuration:** Run the boolean presence check in section 4 in the same terminal that launches the console. Restore missing variables; True only confirms a value exists.
 2. **Authentication failure:** Confirm the tenant/client IDs refer to `SmartPoint Dataverse Integration 2` and that the secret belongs to it and has not expired. Re-enter a valid secret through the masked prompt; do not print it.
