@@ -1,59 +1,51 @@
 # 7. Optional Opportunity Notification
 
-## 1. Original Requirement
+## 1. Objective
 
-Optional: when a new Opportunity is created, send a simple email to the record owner including the Opportunity title and date.
+Optional: configure a Power Automate flow that sends a simple email to the record owner when a new standard Dynamics 365 / Dataverse Opportunity is created. Include the Opportunity title and date.
 
-## 2. Case in One Sentence
+## 2. Intended Design
 
-The optional Power Automate requirement is to email an Opportunity owner when a record is created, but no implementation exists yet.
+The following is an intended design only; no flow was implemented or runtime-tested:
 
-## 3. What We Built
+- Microsoft Dataverse trigger for a newly created Opportunity, with organization scope.
+- Use the Opportunity owner as the email recipient.
+- Include the Opportunity title and date in the email.
+- Use Office 365 Outlook — `Send an email (V2)`, or the equivalent configured mail action.
 
-OPTIONAL — NOT IMPLEMENTED. No flow configuration or runtime result is documented.
+Exact field mappings and owner resolution were not configured or verified.
 
-## 4. Where to Find It
+## 3. Environment Verification
 
-- **Requirement only:** Repository → [PROJECT_PLAN.md](../../PROJECT_PLAN.md) → work package 7.
-- **Implementation location:** NOT AVAILABLE — no flow name, direct link, app, connector choice or implementation artifact is recorded.
-- **Future navigation:** PENDING implementation and verification; no UI path is claimed.
-- **Project context only:** environment `CRM816895`, target unmanaged solution `Achim Beispiel`; these do not establish that the optional flow exists.
+In environment `CRM816895`:
 
-## 5. How It Works
+- The standard Opportunity table could not be selected in the Microsoft Dataverse Power Automate trigger. Searches for `Opportunity` and `Verkaufschance` returned no table.
+- The Dataverse table list was also checked outside the solution; Opportunity was not available.
+- The unmanaged solution `Achim Beispiel` contains existing tables such as Account, Booking, Location, Room and User, but no Opportunity table.
+- Power Platform Admin Center exposes optional Dynamics 365 Sales-related packages, including `Dynamics 365 Sales Demo Hub`. No additional Sales or demo package was installed, and that package was not verified as the intended prerequisite.
 
-Only the required event-to-email behavior is known: new Opportunity, then owner notification containing title and date. Specific trigger settings, owner resolution and email action have not been designed or implemented in this project.
+These checks establish the environment limitation; they are not a flow runtime test.
 
-## 6. Result and Verification
+## 4. Decision
 
-OPTIONAL — NOT IMPLEMENTED. Nothing is functionally verified. After any future implementation, evidence would need to establish that a new Opportunity triggers the flow and its owner receives the email with the correct title and date.
+The optional Opportunity Notification flow was not implemented because the standard Opportunity table is not available in the provided CRM816895 environment. No custom replacement table or additional Dynamics 365 Sales/demo package was installed solely for this optional exercise.
 
-## 7. Offline Evidence
+A custom substitute would not faithfully implement the standard sales Opportunity concept. Installing an unverified package would alter the provided environment unnecessarily for an optional exercise.
 
-Evidence status: PENDING
+## 5. Result / Status
 
-Recommended screenshot:
-Only after implementation: the received owner notification showing the actual Opportunity title and date. No result screenshot is currently available.
+**OPTIONAL — EVALUATED; INTENTIONALLY NOT IMPLEMENTED due to the verified environment limitation.**
 
-Use dedicated demonstration data and avoid unnecessary personal information.
+This is a deliberate scope decision, not a failed implementation. No Opportunity flow, email delivery or runtime result is claimed. [PROJECT_PLAN.md](../../PROJECT_PLAN.md) records this decision; Cases 01–06 retain their existing statuses.
 
-Intended storage: `docs/case-guide/evidence/`. No image exists or is linked yet. Follow the [evidence instructions](evidence/README.md). Repository text can be shown offline now; they do not replace captured runtime evidence.
+## 6. What I Should Be Able to Explain
 
-## 8. Three Real-World Use Cases
+- Distinguish the intended event-to-email design from implemented functionality.
+- Explain why the standard Opportunity table was required and how its absence was checked.
+- Explain why neither a custom replacement nor an unverified Sales/demo package was introduced.
 
-Explanatory examples only; these are not additional implemented SmartPoint functionality.
+Suggested interview/demo explanation:
 
-1. Alert a salesperson to a newly assigned sales lead.
-2. Notify a manager when a new deal enters the pipeline.
-3. Send an owner a reminder that a new business record needs follow-up.
-
-## 9. What I Should Be Able to Explain
-
-- [ ] Explain the known requirement without presenting a design as implemented.
-- [ ] Explain the difference between record creation and email delivery evidence.
-- [ ] Identify the record owner as the required recipient.
-
-## 10. Troubleshooting and Important Notes
-
-This component is optional and remains NOT IMPLEMENTED (NOT STARTED in the authoritative roadmap). No implementation work or speculative connector configuration is part of this consolidation phase.
+> I intended to use the standard Opportunity table rather than creating a custom substitute. Because that table is not provisioned in the provided environment, I chose not to alter the environment by installing an unverified Sales/demo package solely for an optional exercise.
 
 [Back to Case Guide](README.md)

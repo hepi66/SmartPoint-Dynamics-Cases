@@ -4,7 +4,7 @@ This is the central navigation and explanation guide for the SmartPoint Dynamics
 
 ## Case Overview
 
-The case combines Dataverse data modeling, model-driven apps, event-driven email automation, client-side JavaScript, SDK-based C# integration, scheduled execution and a conversational Dataverse agent. The seventh component is optional and unimplemented.
+The case combines Dataverse data modeling, model-driven apps, event-driven email automation, client-side JavaScript, SDK-based C# integration, scheduled execution and a conversational Dataverse agent. The seventh component was evaluated and intentionally not implemented because the standard Opportunity table is unavailable in the provided environment.
 
 | Case | Current implementation status |
 | --- | --- |
@@ -14,7 +14,7 @@ The case combines Dataverse data modeling, model-driven apps, event-driven email
 | [4. C# Account Numbering Console](04-account-numbering-console.md) | COMPLETED and VERIFIED |
 | [5. Timer-triggered Account Numbering Function](05-account-numbering-function.md) | COMPLETED and VERIFIED |
 | [6. Copilot Studio Account Creator](06-account-creator.md) | COMPLETED and end-to-end VERIFIED |
-| [7. Optional Opportunity Notification](07-opportunity-notification.md) | OPTIONAL — NOT IMPLEMENTED |
+| [7. Optional Opportunity Notification](07-opportunity-notification.md) | OPTIONAL — EVALUATED; INTENTIONALLY NOT IMPLEMENTED |
 
 ## Environment and Tooling
 
@@ -30,7 +30,7 @@ The case combines Dataverse data modeling, model-driven apps, event-driven email
 
 All seven guide pages are CREATED. Evidence status is tracked per case in PROJECT_PLAN.md; Case 06 now has two final screenshots; case 7 evidence is NOT AVAILABLE because nothing is implemented. Demo readiness for cases 1–5 is PENDING, case 6 is PENDING, and case 7 is NOT AVAILABLE. Documentation creation is not a new functional verification.
 
-Case pages use a common ten-section structure and exactly three explicitly illustrative business examples. The new “Case in One Sentence” section is a learning/navigation aid that connects each requirement with its technology and outcome, not a new requirement. Existing repository evidence has been summarized; missing app URLs, detailed form/view configuration and the verified Azurite launch command remain explicit gaps. Case 06 now includes successful-test and persisted-result screenshots. See [evidence workflow](evidence/README.md).
+Cases 01–06 use a common ten-section structure and exactly three explicitly illustrative business examples. Optional Case 07 uses six concise sections covering its objective, intended design, environment verification, decision, status and interview explanation. The new “Case in One Sentence” section is a learning/navigation aid that connects each requirement with its technology and outcome, not a new requirement. Existing repository evidence has been summarized; missing app URLs, detailed form/view configuration and the verified Azurite launch command remain explicit gaps. Case 06 now includes successful-test and persisted-result screenshots. See [evidence workflow](evidence/README.md).
 
 ## Final Restart and Demo Sequence — PENDING
 
@@ -38,4 +38,4 @@ The final repeatable sequence will be captured and checked after restart. It is 
 
 The Account notification, console and timer use the same company-number field. Their historical test values 4711, 1000 and 1 belong to different runs. Stop the timer before showing another numbering result and define the intended values and order in the final sequence. Do not treat the historical booking date as today's date.
 
-Collect and link one primary screenshot per case by default. Use dedicated demonstration data and avoid unnecessary personal information. Complete a restart rehearsal before marking a case Demo Ready. Present the successful Case 06 test and persisted Account; do not imply that the agent was published. The optional flow remains planned and must not be presented as built.
+Collect and link one primary screenshot per case by default. Use dedicated demonstration data and avoid unnecessary personal information. Complete a restart rehearsal before marking a case Demo Ready. Present the successful Case 06 test and persisted Account; do not imply that the agent was published. Present the optional flow as evaluated and intentionally not implemented due to the verified environment limitation.

@@ -25,7 +25,7 @@ Case Consolidation and Demonstration Readiness: prepare the separate overall cas
 | 4 | C# Dataverse console application | COMPLETED and functionally VERIFIED |
 | 5 | Timer-triggered Azure Function | COMPLETED and functionally VERIFIED |
 | 6 | Copilot Studio Account Creator | COMPLETED and end-to-end VERIFIED |
-| 7 | Optional Opportunity notification flow | NOT STARTED |
+| 7 | Optional Opportunity notification flow | EVALUATED — INTENTIONALLY NOT IMPLEMENTED (standard Opportunity table unavailable) |
 
 ## Requirements
 
@@ -110,11 +110,13 @@ Status: COMPLETED and end-to-end VERIFIED in Copilot Studio on 2026-09-12. Publi
 
 ### 7. Optional Opportunity Notification Flow
 
-Status: NOT STARTED
+Status: OPTIONAL — EVALUATED; INTENTIONALLY NOT IMPLEMENTED due to the verified environment limitation.
 
 - Trigger when a new Opportunity is created.
 - Send a simple email to the record owner.
 - Include the Opportunity title and date.
+
+The standard Opportunity table was unavailable in the Dataverse trigger (searches for Opportunity and Verkaufschance), in the table list outside the solution, and in Achim Beispiel. No custom replacement table or additional Dynamics 365 Sales/demo package was installed solely for this optional exercise; the available Sales Demo Hub package was not verified as the intended prerequisite. This is an evaluated scope decision, not a failed implementation. Intended design and environment checks are documented in [Case 07](docs/case-guide/07-opportunity-notification.md).
 
 ## Working Principles
 
@@ -130,9 +132,9 @@ Status: NOT STARTED
 - Created the initial repository documentation and minimal `.gitignore` baseline.
 - Dataverse room-planning foundation: COMPLETED manually in environment `CRM816895`, unmanaged solution `Achim Beispiel`, based on the user-provided verified implementation state.
 - Room Planning Dataverse/model-driven app foundation: COMPLETED to the extent required for the SmartPoint case, based on the user-provided functional verification recorded below.
-- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Priority 6 is COMPLETED and end-to-end VERIFIED; priority 7 remains NOT STARTED.
+- Booking Confirmation Power Automate flow: COMPLETED and VERIFIED based on the user-provided end-to-end test and actual email receipt recorded below. Priority 6 is COMPLETED and end-to-end VERIFIED; priority 7 is EVALUATED and intentionally NOT IMPLEMENTED because the standard Opportunity table is unavailable.
 - Copilot Studio Account Creator: COMPLETED and end-to-end VERIFIED; the final standard-agent test created `SmartPoint Copilot Final Test`, subsequently visible in Account Management, as recorded in work package 6.
-- Timer-triggered Azure Function: COMPLETED and functionally VERIFIED; two local timer invocations persisted company number `"1"` for SmartPoint Test Account, as recorded in work package 5.
+- Timer-triggered Azure Function: COMPLETED and functionally VERIFIED; two successful local timer invocations processed three Accounts alphabetically and persisted the values in Dataverse: Alpha Test Account = 1, SmartPoint Test Account = 2, Zebra Test Account = 3, as recorded in work package 5.
 - C# Account Numbering console application: COMPLETED and functionally VERIFIED; the live run persisted company number `1000` for `SmartPoint Test Account`, as recorded in work package 4.
 - JavaScript Account Form Notification: COMPLETED and VERIFIED in the published `Account Management` test app, as recorded in work package 3 above.
 
@@ -189,7 +191,7 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 
 Status: IN PROGRESS. The [central Case Guide](docs/case-guide/README.md) and all seven case pages are CREATED. Existing implementation statuses and verified history remain unchanged; guide creation is not runtime verification.
 
-This phase consolidates the case into one navigable guide, maps original requirements to implementations, documents where to find them, prepares offline evidence and a safe repeatable demo sequence, supplies concise interview notes and three illustrative real-world use cases per component, and checks that the completed work can be found and demonstrated after restart without chat history.
+This phase consolidates the case into one navigable guide, maps original requirements to implementations, documents where to find them, prepares offline evidence and a safe repeatable demo sequence, supplies concise interview notes and three illustrative real-world use cases per implemented component, and checks that the completed work can be found and demonstrated after restart without chat history.
 
 | Case | Implementation | Case Guide | Offline Evidence | Demo Ready |
 | --- | --- | --- | --- | --- |
@@ -199,19 +201,19 @@ This phase consolidates the case into one navigable guide, maps original require
 | 4. C# Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
 | 5. Azure Function Account Numbering | COMPLETED and functionally VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two final screenshots | PENDING |
 | 6. Copilot Studio Account Creator | COMPLETED and end-to-end VERIFIED | CREATED, REVIEWED and APPROVED by the user | AVAILABLE — two screenshots | PENDING |
-| 7. Opportunity Notification | OPTIONAL — NOT IMPLEMENTED | CREATED | NOT AVAILABLE | NOT AVAILABLE |
+| 7. Opportunity Notification | OPTIONAL — EVALUATED; INTENTIONALLY NOT IMPLEMENTED | CREATED — environment limitation and decision documented | NOT AVAILABLE | NOT AVAILABLE |
 
-Two supplied Room Planning runtime screenshots are linked in [Case 01](docs/case-guide/01-room-planning.md), showing the room capacities and Today's Bookings. Case 01 demo readiness remains pending; screenshots do not establish a restart rehearsal. Case 7's page reserves a future evidence slot but has no available implementation result. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
+Two supplied Room Planning runtime screenshots are linked in [Case 01](docs/case-guide/01-room-planning.md), showing the room capacities and Today's Bookings. Case 01 demo readiness remains pending; screenshots do not establish a restart rehearsal. Case 7 documents the verified environment limitation and the decision not to implement the optional flow; no runtime evidence is available. The final restart/demo sequence is a clearly marked placeholder, not a completed rehearsal.
 
 Demo Ready can become complete only after the implementation status is understood, navigation/restart instructions are sufficient, primary offline evidence exists, and the intended demonstration path is known. Confirm these through a restart rehearsal rather than inferring readiness from documentation.
 
-Preserve detailed component documentation as the technical reference. Capture missing verified navigation details and the actual Azurite startup command, collect sanitized screenshots, and account for the console, timer and notification sharing the same company-number field. Copilot end-to-end verification is complete; publishing is not claimed. The optional Opportunity flow remains planned and is not implemented in this phase.
+Preserve detailed component documentation as the technical reference. Capture missing verified navigation details and the actual Azurite startup command, collect sanitized screenshots, and account for the console, timer and notification sharing the same company-number field. Copilot end-to-end verification is complete; publishing is not claimed. The optional Opportunity flow was evaluated and intentionally not implemented because the standard Opportunity table is unavailable.
 
 ## Next Steps
 
 1. Consolidate missing navigation/restart details and collect one sanitized primary screenshot per implemented/configured case. Link real evidence in the Case Guide and update this phase's table conservatively.
 2. Prepare and rehearse the final restart/demo sequence without relying on chat history; preserve pending readiness until its criteria are met.
 3. Include the verified Case 06 agent-to-Dataverse result in the separate overall case review and demonstration preparation.
-4. Optional Opportunity notification flow remains planned and NOT STARTED; no implementation is included in this phase.
+4. Present the optional Opportunity case as evaluated and intentionally not implemented due to the unavailable standard table; no environment changes are planned solely for this optional exercise.
 
 Update this plan as implementation and verification actually occur, following the priority order above.
