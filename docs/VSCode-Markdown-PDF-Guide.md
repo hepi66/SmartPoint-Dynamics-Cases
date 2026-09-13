@@ -30,7 +30,7 @@ In VS Code Settings, filter by `@ext:yzane.markdown-pdf`:
 | --- | --- | --- |
 | `markdown-pdf.format` | `A4` | Standard page size |
 | `markdown-pdf.includeDefaultStyles` | `true` | Use the extension's default Markdown styles |
-| `markdown-pdf.displayHeaderFooter` | `false` | Avoid technical filename, date and page-number output in headers/footers |
+| `markdown-pdf.displayHeaderFooter` | `true` for the presentation layer | Use the custom footer and an invisible header; use `false` for a plain export |
 | `markdown-pdf.outputDirectory` | Empty | Create the PDF beside the Markdown file |
 
 These are the principles used successfully in SmartPoint. Preview and PDF rendering can still differ slightly in fonts, syntax highlighting and pagination.
@@ -93,3 +93,27 @@ Open the generated Markdown, preview it with **Ctrl+Shift+V**, then export with 
 - Add exact generated Markdown/PDF output paths to `.gitignore` when they are build outputs; keep source Markdown and original evidence tracked.
 
 PDF text extraction may show encoding artifacts even when the visible PDF and hyperlinks are correct. Check the actual rendered PDF before changing source content based on extracted text alone.
+
+## Reusable Presentation Layer
+
+[markdown-pdf.css](markdown-pdf.css) adds restrained dark-blue headings, neutral table borders and readable links without changing the source content or screenshot widths. Inline technical labels have light-gray backgrounds, subtle borders and dark charcoal text, including nested syntax-colored elements. Fenced code stays on a light neutral background with the `github.css` highlighting theme; it is excluded from the inline-label rules. This prioritizes contrast and print readability without large toner-heavy blocks.
+
+Open the repository folder in VS Code so `.vscode/settings.json` applies. Its `markdown-pdf.styles` loads `docs/markdown-pdf.css` relative to the workspace root (`stylesRelativePathFile: false`); default styles and print backgrounds remain enabled. These export styles do not change the built-in Markdown Preview. The workspace settings file is versioned; unrelated VS Code workspace files remain ignored.
+
+The presentation layer supersedes the earlier plain-export recommendation to disable headers/footers. It enables `displayHeaderFooter`, sets `headerTemplate` to `<div></div>` (no visible header), and supplies a custom `footerTemplate`. The footer has a subtle separator, author on the left, filename and release date in the center, and Page X of Y on the right. `pageNumber` and `totalPages` spans are populated automatically by the exporter. Author, filename/title and release date are literal project metadata; update them for another document.
+
+Footer HTML uses its own inline CSS because Puppeteer renders header/footer templates separately from the document stylesheet. The top/left/right margins remain 1.5/1/1 cm; a 2 cm bottom margin reserves room for the compact footer. Keep this space when adapting the template and check for overlap after export.
+
+### Reusable Project Template
+
+1. Install/verify `yzane.markdown-pdf`.
+2. Copy/adapt `docs/markdown-pdf.css`.
+3. Copy/adapt the relevant Markdown PDF entries from `.vscode/settings.json`, preserving unrelated settings and adjusting the stylesheet path.
+4. Change author, release date and document filename/title in `footerTemplate`.
+5. For multiple Markdown documents, copy/adapt the PowerShell merge pattern.
+6. Generate the combined Markdown.
+7. Inspect it using VS Code Markdown Preview.
+8. Export with Markdown PDF.
+9. Visually inspect the PDF before sharing: footer metadata and page counts, separator, invisible header, no overlap, high-contrast inline labels, light code blocks and clear screenshots.
+
+The workflow and final presentation layer were visually reviewed and approved by the user. Continue checking each exported PDF; Preview alone cannot validate the printed footer or pagination.

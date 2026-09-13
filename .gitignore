@@ -1,6 +1,7 @@
 # Visual Studio and VS Code local workspace settings
 .vs/
-.vscode/
+.vscode/*
+!.vscode/settings.json
 *.user
 *.suo
 *.sln.docstates

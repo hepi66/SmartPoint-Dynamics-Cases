@@ -1,0 +1,19 @@
+{
+  "markdown-pdf.format": "A4",
+  "markdown-pdf.includeDefaultStyles": true,
+  "markdown-pdf.styles": [
+    "docs/markdown-pdf.css"
+  ],
+  "markdown-pdf.stylesRelativePathFile": false,
+  "markdown-pdf.highlight": true,
+  "markdown-pdf.highlightStyle": "github.css",
+  "markdown-pdf.printBackground": true,
+  "markdown-pdf.outputDirectory": "",
+  "markdown-pdf.margin.top": "1.5cm",
+  "markdown-pdf.margin.bottom": "2cm",
+  "markdown-pdf.margin.left": "1cm",
+  "markdown-pdf.margin.right": "1cm",
+  "markdown-pdf.displayHeaderFooter": true,
+  "markdown-pdf.headerTemplate": "<div></div>",
+  "markdown-pdf.footerTemplate": "<div style='width:100%; margin:0 1cm; padding-top:6px; border-top:1px solid #b8c6d0; font-family:Arial,sans-serif; font-size:8px; line-height:1.4; color:#444c56; display:flex; align-items:center;'><span style='flex:1; text-align:left;'>Achim Hepberger</span><span style='flex:2; text-align:center;'>00-complete-case-guide.md | Release: 2026-09-13</span><span style='flex:1; text-align:right; white-space:nowrap;'>Page <span class='pageNumber'></span> of <span class='totalPages'></span></span></div>"
+}

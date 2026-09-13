@@ -1,0 +1,39 @@
+/* Reusable technical PDF styling. Keep Markdown PDF default styles enabled. */
+body { color: #24292f; line-height: 1.55; }
+h1, h2, h3 { color: #244761; line-height: 1.25; break-after: avoid; }
+h1 { border-bottom: 1px solid #b8c6d0; padding-bottom: 0.25em; }
+h2 { border-bottom: 1px solid #dce2e7; padding-bottom: 0.2em; }
+h3 { font-weight: 600; }
+a { color: #244761; text-decoration: underline; }
+th { background: #edf1f4; color: #24292f; }
+th, td { border: 1px solid #d4dbe1; padding: 6px 10px; }
+blockquote { border-left-color: #b8c6d0; color: #444c56; }
+img { max-width: 100%; height: auto; break-inside: avoid; }
+
+/* Exclude all code inside pre, including nested renderer wrappers. */
+code:not(pre code) {
+    background: #e9ecef !important;
+    color: #24292f !important;
+    border: 1px solid #d4dbe1;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-weight: 400;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+code:not(pre code) *, code:not(pre code) a {
+    color: #24292f !important;
+    background: transparent !important;
+    font-weight: 400;
+}
+
+/* Light blocks save toner; github.css supplies restrained syntax colors. */
+pre, pre.hljs, pre code, pre code.hljs {
+    background: #f5f6f7 !important;
+    color: #24292f;
+}
+pre { border: 1px solid #d4dbe1; border-radius: 3px; padding: 12px; }
+pre code { padding: 0; font-family: Consolas, 'Courier New', monospace; }
+pre .hljs-comment, pre .hljs-quote { color: #57606a; }
