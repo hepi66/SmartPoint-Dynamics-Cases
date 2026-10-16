@@ -2,94 +2,82 @@
 
 ## Status and components
 
-The Copilot Studio → Power Automate → Microsoft Dataverse creation path was successfully exercised on 2026-10-15 in environment `CRM738378`. The created Opportunity was subsequently found and opened in the `SmartPoint Sales Demo` model-driven app. The agent-returned ID matches the independently opened record. The flow does not yet return a dynamically generated `opportunityUrl` for a clickable link in the agent response. This remains an open US-03 / M-05 acceptance requirement for T5, not an optional enhancement.
+The Copilot Studio → Power Automate → Dataverse path was functionally verified in environment `CRM738378` on 2026-10-15 and 2026-10-16. The 2026-10-16 Copilot Studio test verified a missing-close-date clarification, a complete pre-write summary, one explicit confirmation, flow creation, and a clickable record link. In the complete-input test, the link opened the created record in the `SmartPoint Sales Demo` model-driven app. The exact original T5 sample data was not used; see the acceptance boundary below.
 
 | Component | Configuration |
 | --- | --- |
 | Copilot Studio agent | `SmartPoint Sales Assistant` |
 | Agent tool | `Create Sales Opportunity via Flow` |
 | Cloud flow | `Create Sales Opportunity` |
-| Dataverse table | `Sales Opportunity` (custom table) |
+| Dataverse table | Custom `Sales Opportunity` (`cr233_salesopportunity`) |
 | Environment | `CRM738378` |
+| Model-driven app | `SmartPoint Sales Demo` |
 
-## Architecture and workflow
+## Architecture and flow contract
 
-1. The agent uses the existing Account lookup capability to identify the requested customer.
-2. It presents the proposed Opportunity and Account and obtains explicit user confirmation before writing.
-3. On confirmation, the agent calls `Create Sales Opportunity via Flow`, passing `opportunityName` and `accountId` to `Create Sales Opportunity`.
-4. The flow creates a row in the custom Dataverse `Sales Opportunity` table and returns `opportunityId` through **Respond to the agent**.
-5. The flow output observed during testing was an OData record URL in `opportunityId`. The agent extracted and displayed the GUID. The separately verified model-driven-app record URL is documented below.
+1. The agent uses the existing Dataverse Account lookup to resolve the customer.
+2. The agent collects the required Opportunity values. If the expected close date is missing, it asks for it before presenting the complete proposed values.
+3. The agent waits for explicit user confirmation before calling the flow.
+4. The existing tool passes four inputs: `opportunityName`, `accountId`, `estimatedRevenue`, and `estimatedCloseDate`.
+5. The flow creates a row in the custom Sales Opportunity table and responds to the agent with the created-record result. A clickable record link was observed in the successful 2026-10-16 test and opened the row in the complete-input test.
 
-## Dataverse lookup binding
+The report confirms the four input names and successful result, but does not specify the current response property's exact name or URL expression. Do not assume that the current output is named `opportunityUrl` without inspecting the live flow. In an earlier test version, the `opportunityId` response contained an OData record URL, from which the agent displayed the GUID. The 2026-10-16 technical report is the evidence for the later clickable-link behavior.
 
-The flow's visible input is `accountId`, but its internal trigger property is `text_1`. Use the internal property name when building the Account lookup reference:
+## Dataverse Account lookup binding
+
+The visible tool input is `accountId` and carries the Account GUID. Dataverse's create-row Account lookup must receive an OData entity reference, not a bare GUID. In the earlier verified flow trigger, the actual internal property for the visible `accountId` input was `text_1`; this expression built the reference:
 
 ```text
 concat('accounts(', triggerBody()?['text_1'], ')')
 ```
 
-The Dataverse Account lookup expects an OData entity reference, such as `accounts(<Account GUID>)`, rather than a bare GUID. The Opportunity Name column uses the dynamic `opportunityName` input. The flow returns `opportunityId` using **Respond to the agent**.
-
-## Troubleshooting notes
-
-- **`ODataUnrecognizedPathException`:** The first attempt supplied the raw Account GUID to the lookup. Dataverse requires an OData reference using the `accounts(<GUID>)` path.
-- **`accounts()` / empty reference:** A later expression read `triggerBody()?['accountId']`, so the resulting path was `accounts()` with no Account ID. That key was not present in the trigger body; the actual internal property was `text_1`.
-- **Diagnosis:** Power Automate run history was used to inspect trigger outputs and the inputs passed to the Dataverse create-row action. Compare the displayed input name with the actual trigger property instead of assuming they match.
-- **Lesson:** Power Automate display names and internal trigger property names can differ. Build expressions against the actual trigger output shape.
+This documents the observed flow version and troubleshooting resolution. The exact current trigger property should not be guessed if the flow is later changed; the historical error was diagnosed from run-history trigger outputs and Dataverse action inputs.
 
 ## Confirmation and response behavior
 
-The agent instructions require explicit confirmation before creating an Opportunity. During the demo configuration, tool-level **Ask end user before running** was disabled because it added a second confirmation prompt; agent-level confirmation remained enabled. This is a demo choice, not the production security recommendation. For production write operations, prefer enforced tool-level confirmation with one clear approval step and no redundant conversational confirmation.
+The agent instructions require explicit confirmation before the write. The demo disables the tool-level **Ask end user before running** option to avoid a duplicate confirmation; the agent-level confirmation remains. The 2026-10-16 missing-date test showed the agent asking for the date, then summarizing all four values and waiting for an explicit confirmation before invoking the flow. The agent returned one success message with a clickable link.
 
-The tool completion behavior was changed from **Do not respond** to **Send specific response**, using an English success message. Tool outputs remain available to the agent, which can use the returned `opportunityId`.
+This is the tested proof-of-concept configuration. For production write operations, enforce one clear approval step at the tool boundary and avoid asking the user twice. No dedicated Copilot Studio Topic was introduced; the existing instruction-based orchestration remains the selected PoC design. The verified pre-write summary is sufficient; no additional post-creation summary is needed.
 
-## Verification on 2026-10-15
+## Verification
 
-- Manual Power Automate run: successful at **07:35**.
-- Agent-triggered flow run: successful at **07:43**.
-- Final Copilot Studio test created the requested Opportunity through the tool and returned a success response:
-  - Opportunity: `AX-300 CNC Machine Final Test`
-  - Account: `Huber Logistik`
-  - Account ID: `177a9152-afc7-f111-a05a-000d3a0a2928`
-  - Created record ID: `c2ade295-5ec8-f111-a05a-002248d597bf`
-- The final test showed one confirmation, successful tool completion, and a user-visible success message.
-- The record was independently found and opened through the `SmartPoint Sales Demo` model-driven app. Its ID matches the agent's returned GUID.
+### Earlier test — 2026-10-15
 
-### Independent record read-back and verified URL
+- Manual Power Automate run completed successfully at 07:35; agent-triggered run completed at 07:43.
+- One confirmation preceded creation of `AX-300 CNC Machine Final Test` for `Huber Logistik`.
+- Account ID: `177a9152-afc7-f111-a05a-000d3a0a2928`.
+- Created Opportunity ID: `c2ade295-5ec8-f111-a05a-002248d597bf`.
+- The record was independently found and opened in `SmartPoint Sales Demo`; its ID matched the agent-returned ID.
 
-- Model-driven app: `SmartPoint Sales Demo`
-- App ID (`appid`): `37590ede-88c7-f111-a05a-000d3a0a2928`
-- Table logical name (`etn`): `cr233_salesopportunity`
-- Record ID (`id`): `c2ade295-5ec8-f111-a05a-002248d597bf`
-- Record URL: [Open the verified Opportunity](https://org52f65de8.crm3.dynamics.com/main.aspx?appid=37590ede-88c7-f111-a05a-000d3a0a2928&pagetype=entityrecord&etn=cr233_salesopportunity&id=c2ade295-5ec8-f111-a05a-002248d597bf)
+### Updated tests — 2026-10-16
 
-URL parameters:
+**Complete-input test:** `AX-300 CNC Machine Demo` for `Huber Logistik`, estimated revenue `35000`, expected close date `2026-12-15`. The agent requested confirmation, the flow created the row, and the returned link opened it in `SmartPoint Sales Demo`. The report does not record this test's row ID. The user request specified EUR, but an earlier Power Apps record view displayed `$35,000.00`; the stored/displayed currency was not independently verified as EUR.
 
-- `appid` selects the `SmartPoint Sales Demo` model-driven app.
-- `pagetype=entityrecord` opens a Dataverse row form.
-- `etn` identifies the table by logical name, `cr233_salesopportunity`.
-- `id` identifies the Opportunity row; it matches the GUID returned by the agent.
+**Missing-date test:** The request named `AX-300 CNC Machine Demo Missing Date` for `Huber Logistik` with estimated revenue `35000` and omitted the close date. The agent explicitly asked for the missing date; after the user supplied `2026-12-15`, the agent presented all four values, waited for explicit confirmation, and then the flow completed. The agent returned one clickable success link. The report does not record this run's row ID or an independent read-back of this specific row.
 
-This verifies that the record exists and can be opened in the app. It does not mean the flow currently returns this app-specific URL to the agent.
+### T5 acceptance boundary
 
-## 3–5 minute demonstration outline (Copilot Studio test chat)
+The original assignment's exact scenario is: “Create an Opportunity: Huber Logistik wants three AX-200, approximately EUR 450,000.” The tests above used AX-300 and `35000`, not three AX-200 and approximately EUR 450,000. Therefore, the required-field clarification, confirmation, create, and link behavior is verified with the recorded variants, but the exact original T5 business-data scenario and EUR handling are not. A separate negative test that directly invokes the flow with missing required inputs was also not documented; the flow-side condition remains a defensive layer rather than a separately verified test.
 
-The agent is published and installed in Teams, but Teams requests currently fail with a usage-limit error. Use the working Copilot Studio test chat for this flow demonstration until the Teams retest succeeds; do not present Teams runtime as verified.
+### Independently verified record URL from 2026-10-15
 
-1. **0:00–0:45 — Set the context:** Show `SmartPoint Sales Assistant` and explain that the agent reads the existing Account data before a write.
-2. **0:45–1:30 — Identify and confirm:** Use `Huber Logistik` as the customer, review the proposed Opportunity name and account, and show the single explicit confirmation. A suggested demo prompt is “Create the opportunity AX-300 CNC Machine Final Test for Huber Logistik”; this is presentation wording, not a quoted test transcript.
-3. **1:30–2:30 — Show the integration:** Point out the `Create Sales Opportunity via Flow` tool and the `Create Sales Opportunity` flow. Explain the `opportunityName` and `accountId` inputs and the Account OData reference.
-4. **2:30–3:30 — Explain the response and read-back:** Show the flow run and `Respond to the agent` output, then open the independently verified row in `SmartPoint Sales Demo`. Compare the returned GUID with the `id` in the record URL. Clarify that automatic clickable-link generation is not yet implemented.
-5. **3:30–5:00 — Explain the debugging lesson:** Briefly contrast the raw GUID and wrong `accountId` property failures with the working `accounts(...)` expression using `text_1`.
+- App ID: `37590ede-88c7-f111-a05a-000d3a0a2928`
+- Table logical name: `cr233_salesopportunity`
+- Record ID: `c2ade295-5ec8-f111-a05a-002248d597bf`
+- Verified URL: [Open the previously verified Opportunity](https://org52f65de8.crm3.dynamics.com/main.aspx?appid=37590ede-88c7-f111-a05a-000d3a0a2928&pagetype=entityrecord&etn=cr233_salesopportunity&id=c2ade295-5ec8-f111-a05a-002248d597bf)
 
-## Technical discussion prompts
+The URL structure and its `appid`, `pagetype`, `etn`, and `id` parameters were verified for that record. It does not reveal the exact expression or response-property name used by the later flow link.
 
-- **Why use a flow?** It provides a controlled write boundary between the agent and Dataverse and allows the agent to request confirmation before the write.
-- **Why does the lookup need `accounts(<GUID>)`?** The Dataverse lookup input expects an OData entity reference, not a raw identifier.
-- **Why use `text_1` instead of `accountId`?** `accountId` is the visible input label; the trigger body exposed the internal property `text_1`. The actual trigger output is authoritative for expressions.
-- **How were the failures diagnosed?** Inspect run history, trigger outputs, and Dataverse action inputs, then compare the lookup payload with the expected OData path.
-- **What is the confirmation trade-off?** The demo retains agent-level confirmation and disables the duplicate tool prompt. For production writes, enforce one approval step at the tool boundary without asking twice.
+## Troubleshooting and lessons learned
 
-## Remaining verification
+- **Missing close date:** The initial negative test showed “planned close: not specified” and still offered to create the record. That contradicted the requirement. Agent instructions were tightened so all four values must be present before confirmation; the 2026-10-16 retest asked for the date first. This demonstrates the tested conversation, not every possible missing-field combination.
+- **Lookup reference:** An initial `ODataUnrecognizedPathException` followed from passing a raw GUID directly into the Dataverse lookup. A later empty `accounts()` reference came from reading `triggerBody()?['accountId']` when the observed internal key was `text_1`. Run history revealed the actual trigger payload. The corrected mapping uses the GUID input to build the required OData account reference.
+- **Flow validation:** A numeric input caused a runtime error when checked with `empty()`. The validation was corrected. The flow-side condition remains defensive; a direct test of the flow with missing inputs was not recorded.
+- **Flow response actions:** Conflicting/multiple response-action issues and response outputs were corrected. No exact current output schema or expression is documented beyond the observed returned clickable link.
+- **Separate issue:** The unrelated `Create Customer` topic error `Input binding 'item.name' was not found.` is not part of this Opportunity flow and must not be retried as an Opportunity fix.
 
-The 2026-10-15 test verified successful manual and agent-triggered flow runs, the returned identifier, and independent read-back by opening the matching record in `SmartPoint Sales Demo`. The agent has since been published and installed in Microsoft Teams, but Teams requests fail with a usage-limit error even though the Copilot Studio test chat works. The suspected licensing/capacity cause is not confirmed. `CRM738378` has 1,000 allocated legacy sessions; no Copilot Credits or billing plan were found. An inquiry was emailed to Dominic Bley on 2026-10-15, and his automatic reply states that he will be available again from 2026-10-18. The next action is to evaluate SmartPoint's response and retest in Teams. Do not enable paid billing without explicit approval. The full end-to-end Teams test remains pending. For US-03 / T5, the remaining acceptance work is to return a dynamically generated `opportunityUrl` and display it as a clickable link immediately after successful creation, then verify that it opens the newly created row. The original T5 scenario and required close-date clarification also remain unverified; see the case plan for the exact criteria and preparation sequence.
+## Current demo guidance and remaining project work
+
+Use Copilot Studio test chat for the verified flow demo. The agent is published and installed in Teams, but Teams requests fail with a usage-limit error; licensing/capacity is suspected, not confirmed. `CRM738378` has 1,000 allocated legacy sessions, but no Copilot Credits or billing plan were found. SmartPoint guidance is pending. Do not enable paid billing without explicit approval.
+
+US-03's current agent instructions, flow, and tool are the verified PoC architecture; do not add a dedicated Topic or change the working link without a requirement. The exact original T5 sample, currency persistence, and the separate flow-side negative test remain limitations. The next mandatory project action is US-05 / T7 regional-permission verification. The US-04 / T6 bonus plan is scheduled after T7; when it is pursued, first verify Approvals and Teams action availability, licenses, permissions, approver/requester identities, and the required Opportunity outcome-persistence target. See the [authoritative case plan](PROJECT_PLAN.md) and [chat handoff](../../docs/CHAT_HANDOFF.md).
