@@ -13,7 +13,7 @@ This file is the authoritative source for the project roadmap, progress, complet
 
 ## Current Focus / Next Step
 
-CRM738378 Copilot Sales Agent: complete mandatory US-05 / T7 regional-permission verification before starting bonus US-04 / T6. The US-04 plan and feasibility gate are documented for after T7. Repository-wide case consolidation and restart/live demonstration rehearsal remain tracked separately.
+Case Consolidation and Demonstration Readiness: prepare the separate overall case review and restart/live demonstration rehearsal.
 
 ## Roadmap and Implementation Status
 
@@ -186,51 +186,6 @@ This is a conscious scope decision, not an unnoticed defect. Completion of the R
 6. After saving the updated flow, a new Booking triggered it successfully; all four stages completed and the received email contained the correct booking date and room. Office 365 Outlook is the final working mail connector.
 
 7. Later stale-host recovery (2026-09-12): the original flow failed with `UnresolvableHostName` / `HostNotFound` and referenced a stale Dataverse hostname. Reauthentication did not resolve it. A fresh copy with rebound Dataverse connections succeeded end-to-end; the original was deactivated and deleted. This resolved the connection/runtime issue without establishing a more specific internal Power Platform root cause; the business logic had already worked in the earlier test.
-
-## Additional Verified Milestones: CRM738378 Sales Demo
-
-**Environment:** `CRM738378`. The solutions `SmartPoint Copilot Sales Case` and `SmartPoint Sales Demo` are separate solutions operating in the same Dataverse environment. The milestones below verify the listed Dataverse and model-driven app work only; they do not change the existing CRM816895 case priorities or imply that Copilot Studio integration is complete.
-
-### SmartPoint Sales Demo app and Quote verification
-
-**Status: VERIFIED for the tested published model-driven app interactions.**
-
-- **Solution:** `SmartPoint Sales Demo`
-- **Model-driven app:** `SmartPoint Sales Demo`
-- The published app was opened using **Play**. Account records were accessible, and the Sales Opportunity and Sales Quote lists and forms worked.
-- Sales Opportunity and Sales Quote are **custom Dataverse tables**, not the standard Dynamics 365 Sales entities.
-- Verified Account test data: `Huber Logistik`.
-- Verified Sales Opportunity: `Logistics Fleet Modernization`, linked to `Huber Logistik`; Estimated Revenue: `85000 USD`; Estimated Close Date: `2026-12-31`; Sales Stage: `New`; Probability: `40`.
-- Quote `QUO-2026-001` was created and saved, linked to `Alpentec CNC Machine Project`, and reopened successfully.
-- Verified Sales Quote: `QUO-2026-002` (`Huber Logistik – Fleet Modernization Quote`), linked to `Logistics Fleet Modernization`; Total Amount: `85000 USD`; Quote Date: `2026-10-14`; Quote Status: `Draft`.
-- The published `SmartPoint Sales Demo` app successfully displays both saved quotes: `QUO-2026-001` and `QUO-2026-002`.
-- The previous access error was not reproduced during this verification.
-
-### Discount Request table and app verification
-
-**Status: VERIFIED for the configured table, app access, record creation, and record reading in the running app.**
-
-- **Solution:** `SmartPoint Copilot Sales Case` (separate from `SmartPoint Sales Demo`)
-- **Custom Dataverse table:** `Discount Request` (`alp_rabattanfrage`)
-- Fields: `Name`, `Discount Percentage`, `Reason`, and `Approval Status`; status options are `Pending`, `Approved`, and `Rejected`.
-- A `N:1` relationship connects Discount Request to the custom `Sales Opportunity` table.
-- The main form and `Active Discount Requests` view are configured. Discount Requests were added to the `SmartPoint Sales Demo` model-driven app; the app was published and tested successfully.
-- In the running app, `Alpentec CNC – 10% Discount Request` was created and read successfully. It is related to `Alpentec CNC Machine Project`, has a 10% discount, and has `Pending` approval status.
-- No Copilot Studio integration or agent-driven Discount Request operation is claimed as completed.
-
-The CRM738378 Copilot Sales Agent foundation remains separate from the CRM816895 case above. US-01 and US-02 are functionally accepted after T1–T4. On 2026-10-16, US-03 was functionally verified in Copilot Studio test chat: the existing controlled flow now takes `opportunityName`, `accountId`, `estimatedRevenue`, and `estimatedCloseDate`; the agent asked for a missing close date, presented the completed values, waited for explicit confirmation, created an Opportunity, and returned a clickable record link. In the complete-input test, the link opened the created record in `SmartPoint Sales Demo`. A second missing-date test completed the same clarification/confirmation/create path and returned a link. The recorded examples used AX-300 and `35000`, not the original T5 scenario of three AX-200 machines for approximately EUR 450,000; that exact business-data scenario has not been replayed. Although the test request stated EUR, a prior app display showed `$35,000.00`, so the persisted/displayed currency is not verified as EUR. A separate negative test of the flow's server-side validation with missing tool inputs also remains unverified. The US-03 technical report is available at the repository root and is unchanged. Mandatory US-05 / T7 regional-permission verification remains ahead of bonus US-04 / T6. US-04 is planned but has no implemented approval workflow or agent integration; its read-only connector/licensing/permission and outcome-persistence feasibility gate is documented for after T7. The Teams agent channel remains separately BLOCKED: Teams requests fail with a usage-limit error even though Copilot Studio test chat works. `CRM738378` shows 1,000 allocated legacy sessions; no Copilot Credits or billing plan were found. Licensing/capacity is suspected, not confirmed. Dominic Bley was contacted on 2026-10-15 and his automatic reply said he would be available again from 2026-10-18; evaluate any response and retest Teams. Do not enable paid billing without explicit approval. See [the Sales Agent project plan](cases/copilot-sales-agent/PROJECT_PLAN.md), [the Opportunity creation flow notes](cases/copilot-sales-agent/SALES_OPPORTUNITY_FLOW.md), and [the chat handoff](docs/CHAT_HANDOFF.md). This does not mark Teams, US-04, US-05, or the broader MVP as complete.
-
-**Copilot Sales Agent status (baseline 2026-10-15; updated 2026-10-16):** Work follows one story at a time: **Plan -> Implement -> Test -> Fix -> Accept -> Presentation -> Next story.** After each accepted story, create a presentation documenting its requirements, implementation, architecture, and test evidence. Do not repeat full-project audits unless requirements or architecture materially change. S01 / US-01 is functionally accepted after T1/T2; S02 / US-02 after T3/T4; and US-03's required-field clarification, confirmation, create, and clickable-link behavior was functionally demonstrated in Copilot Studio test chat on 2026-10-16. The logged US-03 examples do not use the exact original T5 sample values (three AX-200 / approximately EUR 450,000), and the currency value was not verified, so those limits remain explicit. The German v2 US-03 technical report is present in the repository root and remains unchanged. Mandatory US-05 / T7 is next; bonus US-04 / T6 is prepared to follow T7. The Teams publishing/usage-limit blocker remains separate from the working test chat.
-
-| Story | Status | Test acceptance |
-| --- | --- | --- |
-| US-01 / S01 — Customer overview | FUNCTIONALLY COMPLETE / ACCEPTED. | T1 PASS: four open Opportunities, stage, estimated revenue, expected close date, open quote, and recent activity. T2 PASS: clarification between `Huber Logistik` and `Huber Maschinenbau GmbH`. Limitations: stage is numeric Choice; currency is not reliably verified (do not assume EUR); end-to-end response under 10 seconds is unverified. |
-| US-02 / S02 — Product knowledge | FUNCTIONALLY COMPLETE / ACCEPTED (2026-10-16), based on Copilot Studio test evidence. | T3 PASS: AX-200/AX-300 comparison with SharePoint citations. T4 PASS after correction: the agent stated the Italian VAT information was unavailable in the company knowledge base. The initial response used general model knowledge despite web search being disabled; no broader fix is claimed. |
-| US-03 — Create Opportunity | FUNCTIONALLY COMPLETE for the tested Copilot Studio path; technical report available. | T5 behavior verified for required-field clarification, full summary, explicit confirmation, flow creation, and clickable link. The recorded test data differs from the exact original three AX-200 / approximately EUR 450,000 sample; EUR currency persistence/display and a separate server-side missing-input negative test remain unverified. |
-| US-04 — Discount approval (bonus) | PREPARED / BONUS; scheduled after mandatory US-05 / T7. Existing Discount Request foundation is verified; approval workflow not implemented. | T6 BONUS / PENDING. Verify connector, license, permission, approver, Opportunity outcome persistence, and requester notification before implementation. |
-| US-05 — Regional permissions | NEXT MANDATORY STORY / UNVERIFIED. | T7 PENDING: verify user-context access and refusal for a restricted Region North request. |
-
-The Teams usage-limit blocker remains unresolved; licensing/capacity is suspected, not confirmed. Do not enable paid billing without explicit approval. The approved German v3 US-01 and US-02 reports are available in the repository root; the German v2 US-03 technical report is also present and remains unchanged. The next project action is mandatory US-05 / T7 regional-permission verification. The US-04 / T6 bonus plan follows T7 and begins with a read-only feasibility check of Approvals and Teams capabilities, licenses, permissions, approver identity, and the outcome-persistence target. Do not modify cloud resources until the gate and Discount Request field mapping are clear. The exact original T5 sample values and EUR persistence remain limits for a later presentation rehearsal; they do not erase the successful verified US-03 dialog/creation/link tests. Teams response/retest remains a separate channel dependency.
 
 ## Case Consolidation and Demonstration Readiness
 

@@ -2,13 +2,13 @@
 
 **Updated:** 2026-10-16
 **Repository:** `D:\Projekte\SmartPoint-Dynamics-Cases`
-**Authoritative status and roadmap:** [PROJECT_PLAN.md](../PROJECT_PLAN.md)
-**Case-specific plan:** [cases/copilot-sales-agent/PROJECT_PLAN.md](../cases/copilot-sales-agent/PROJECT_PLAN.md)
-**Progress log:** [PROJECT_PROGRESS.md](../cases/copilot-sales-agent/PROJECT_PROGRESS.md)
+**Authoritative case status and roadmap:** [PROJECT_PLAN.md](PROJECT_PLAN.md)
+**Progress log:** [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md)
+**Technical flow notes:** [SALES_OPPORTUNITY_FLOW.md](SALES_OPPORTUNITY_FLOW.md)
 
 ## Project and working rules
 
-This handoff covers the separate Copilot Studio Sales Agent case in environment `CRM738378`. It is distinct from the repository's original room-planning case in `CRM816895`; do not mix their environments, solutions, or status. Repository content and filenames are in English. `PROJECT_PLAN.md` at the repository root is authoritative. Work one story at a time: **Plan -> Implement -> Test -> Fix -> Accept -> Presentation -> Next story.** Do not repeat a full-project audit unless requirements or architecture change. Never claim unverified behavior. Do not store credentials, secrets, or access information from the email context PDF. Do not modify cloud resources or application code unless the next task authorizes it. Never enable paid billing without explicit approval.
+This handoff covers the separate Copilot Studio Sales Agent case in environment `CRM738378`. It is distinct from the repository's original room-planning case in `CRM816895`; do not mix their environments, solutions, or status. Keep all planning, progress, handoff, flow notes, technical documentation, and case evidence in `cases/copilot-sales-agent/`. The case-local `PROJECT_PLAN.md` is authoritative for this case; the repository-root plan belongs to the original project. Repository content and filenames are in English. Work one story at a time: **Plan -> Implement -> Test -> Fix -> Accept -> Presentation -> Next story.** Do not repeat a full-project audit unless requirements or architecture change. Never claim unverified behavior. Do not store credentials, secrets, or access information from the email context PDF. Do not modify cloud resources or application code unless the next task authorizes it. Never enable paid billing without explicit approval.
 
 ## Verified environment and components
 
@@ -81,14 +81,14 @@ Open design/dependency questions: the current documented table does not include 
 
 ## Source and report paths
 
-- Original assignment: [Hepberger Copilot Studio Example - SmartPoint.pdf](../cases/copilot-sales-agent/Hepberger_Copilot_Studio_Beispiel-smartpoint.pdf).
-- Approved US-01 report: [SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf](../SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf).
-- Approved US-02 report: [SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf](../SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf).
-- US-03 completion report: [SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf](../SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf). This file was present locally as an untracked input and is intentionally not included in the documentation commit; do not edit it.
-- Flow design and verification: [SALES_OPPORTUNITY_FLOW.md](../cases/copilot-sales-agent/SALES_OPPORTUNITY_FLOW.md).
-- Four SharePoint knowledge documents are under `cases/copilot-sales-agent/sharepoint-knowledge/`.
+- Original assignment: [Hepberger Copilot Studio Example - SmartPoint.pdf](Hepberger_Copilot_Studio_Beispiel-smartpoint.pdf).
+- Approved US-01 report: [SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf](SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf).
+- Approved US-02 report: [SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf](SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf).
+- US-03 completion report: [SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf](SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf). This remains a local unstaged report artifact; do not edit its content.
+- Flow design and verification: [SALES_OPPORTUNITY_FLOW.md](SALES_OPPORTUNITY_FLOW.md).
+- Four SharePoint knowledge documents are under `sharepoint-knowledge/`.
 - An email context PDF is also present in the case directory and contains access information. Do not commit it or copy its sensitive contents.
 
 ## Git handoff
 
-The repository is on branch `main`, tracking `origin/main`. The base commit before this documentation update was `1485962e62aecbd12f701f2b9917728dfe7d6e13`. After this handoff is committed and pushed, retrieve the exact current commit with `git rev-parse HEAD` (the handoff's own commit hash is reported in the completion message). Do not stage the local assignment/report/knowledge inputs or the email context PDF as part of this documentation change.
+The repository is on branch `main`, tracking `origin/main`. Keep local assignment, report, SharePoint knowledge, and email-context inputs unstaged unless a task explicitly authorizes handling them. The email-context PDF contains access information and must not be committed or quoted. Never delete or overwrite untracked inputs during a documentation repair.

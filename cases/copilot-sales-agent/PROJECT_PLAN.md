@@ -8,9 +8,13 @@
 - **Requirements source:** [Hepberger Copilot Studio Example - SmartPoint.pdf](Hepberger_Copilot_Studio_Beispiel-smartpoint.pdf)
 - **Case directory:** `cases/copilot-sales-agent/`
 - **Progress log:** [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md)
-- **Authoritative project status:** the repository-root [PROJECT_PLAN.md](../../PROJECT_PLAN.md)
+- **Authoritative case status:** this case-local `PROJECT_PLAN.md`
 
 The separate email context document contains access information. Do not commit it or copy sensitive information from it into repository documents.
+
+## Repository Boundary and Case Authority
+
+All Copilot Studio Sales Agent planning, progress, handoff, flow notes, technical documentation, and case evidence belong under `cases/copilot-sales-agent/`. This case-local `PROJECT_PLAN.md` is authoritative for environment `CRM738378`; the repository-root `PROJECT_PLAN.md` documents the separate original SmartPoint practical case in `CRM816895` and is not a source of status or continuation instructions for this case.
 
 ## Status Terms
 
@@ -104,7 +108,7 @@ Effort values are planning estimates; completed foundation work is not to be rep
 
 Both tests passed in Copilot Studio test chat on 2026-10-16. T3 returned an AX-200/AX-300 comparison with SharePoint citations. For T4, the original Italian VAT question first received a response using general model knowledge even though web search was disabled. After correction, the agent stated that Italian VAT information was unavailable in the company knowledge base. Do not claim an unverified permanent fix.
 
-The German v3 reports `SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf` and `SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf` are present in the repository root and must remain unchanged. The German US-03 technical report `SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf` is also present there and remains unchanged; it documents the 2026-10-16 tests. The US-03 v2 report is currently a local untracked input and is not included in the documentation commit.
+The German v3 reports [US-01](SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.pdf) and [US-02](SmartPoint_US02_Product_Knowledge_Technical_Report_DE_v3.pdf), and the German US-03 report [US-03](SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf), are stored in this case directory. Their contents are unchanged. The US-03 v2 report remains an unstaged local report artifact and documents the 2026-10-16 tests.
 
 ## US-03 / S03 — Verified Implementation and Test Results
 
@@ -116,7 +120,7 @@ The German v3 reports `SmartPoint_US01_Customer_Overview_Technical_Report_DE_v3.
 
 **Verified behavior (2026-10-16, Copilot Studio test chat):** A complete-input test created `AX-300 CNC Machine Demo` for `Huber Logistik` with estimated revenue `35000` and expected close date `2026-12-15`; the returned link opened the row in `SmartPoint Sales Demo`. A separate missing-date test used `AX-300 CNC Machine Demo Missing Date`, also for `Huber Logistik` with `35000`: the agent asked for the date, then displayed all four fields and waited for an explicit confirmation. After confirmation, the flow completed and the agent returned one clickable success link. The report does not record the second row's ID or an independent read-back of that specific row. The user entered EUR in the test request, but an earlier app view displayed `$35,000.00`; the stored/displayed currency is not verified as EUR.
 
-**T5 acceptance boundary:** The original required demo request is “Create an Opportunity: Huber Logistik wants three AX-200, approximately EUR 450,000,” with expected close date initially omitted. The tests verify the missing-field/confirmation/create/link behavior with different AX-300 / `35000` sample data. Do not claim that the exact three-machine/approximately-EUR-450,000 scenario or its currency handling was tested. The flow-side missing-input condition exists as a defensive layer, but a direct negative test invoking the flow with incomplete inputs was not separately verified. The current PoC is instruction-driven; a dedicated Topic is not required or planned now. See [the unchanged German technical report](../../SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf) and [flow notes](SALES_OPPORTUNITY_FLOW.md).
+**T5 acceptance boundary:** The original required demo request is “Create an Opportunity: Huber Logistik wants three AX-200, approximately EUR 450,000,” with expected close date initially omitted. The tests verify the missing-field/confirmation/create/link behavior with different AX-300 / `35000` sample data. Do not claim that the exact three-machine/approximately-EUR-450,000 scenario or its currency handling was tested. The flow-side missing-input condition exists as a defensive layer, but a direct negative test invoking the flow with incomplete inputs was not separately verified. The current PoC is instruction-driven; a dedicated Topic is not required or planned now. See the [unchanged German technical report](SmartPoint_US03_Sales_Opportunity_Technical_Report_DE_v2.pdf) and [flow notes](SALES_OPPORTUNITY_FLOW.md).
 
 **Resolved implementation issues and lessons:** The initial missing-date test incorrectly allowed the agent to ask for confirmation without the required date. The instructions were corrected, and the repeated dialogue asked for the date before summarizing and confirming. Flow troubleshooting also resolved competing response-action issues, an `empty()` check applied to a numeric input, and an invalid Account lookup input. The valid Account GUID is supplied as the flow input; the Dataverse lookup must receive the proper entity reference. Earlier run-history diagnosis found that the visible `accountId` input used internal trigger property `text_1`; the historically verified expression was `concat('accounts(', triggerBody()?['text_1'], ')')`. No newer expression or current response property name should be inferred. The current server-side condition remains a defense-in-depth check. The separate `Create Customer` topic error `Input binding 'item.name' was not found.` is unrelated; do not retry it.
 
